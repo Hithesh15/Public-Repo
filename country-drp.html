@@ -1,0 +1,3255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+  
+<title>Validation test form</title><link id='favIcon' rel='shortcut icon' href='https://static.localzohocdn.com/bigindev/biginclient/ui-assets/images/favicons/forms-favicon.cca943a3711d83e497425dc2d30c64fb.ico' type='image/x-icon'><style type='text/css'>
+  /* COMMON STYLES */
+  :root,
+    html {
+    font-size: 10px; 
+  }
+  * {
+  padding: 0; 
+   margin: 0; 
+   outline: 0;}
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #EDF1F4;
+    font-size: 15px;
+  }
+  ul,
+  ol {
+    list-style-position: inside;
+  }
+  textarea,
+  input[type='text'],
+  input[type='button'],
+  input[type='submit'],
+  input[type='date'] {
+    -webkit-appearance: none;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus,
+  button:focus {
+    outline: none;
+  }.link{
+    color: #1980D8;
+    cursor: pointer;
+  }
+  .cP{
+    cursor: pointer;
+  }.flex-center-v{
+    display: flex;
+    align-items: center;
+  }
+  /* COMMON STYLES */
+  .wf-form-component {
+    padding: 30px 40px 60px;
+  }
+  .wf-form-paid {
+    padding-bottom: 45px;
+  }
+  .wf-parent {
+    padding: 30px 0;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;}
+  .wf-wrapper * {
+    box-sizing: border-box;
+  }
+  .wf-wrapper {
+    width: 100%;
+    max-width: 700px;
+    border-radius: 10px;
+    margin: auto;
+    border: none;
+    background-color: #fff;
+    color: #222;
+    box-shadow: 0px 0px 2px 0 #00000033;
+  }
+  .iframe-container{
+    height: 100%;
+    width: 100%;
+    border: none;
+    min-height: 365px;
+  }
+  .wf-logo {
+    display: flex;
+    margin-bottom: 30px;
+    max-height: 60px;
+    justify-content: center;
+  }
+  .wf-logo[data-ux-logo-size='lg'] {
+    height: 60px;
+  }
+  .wf-logo[data-ux-logo-size='md'] {
+    height: 50px;
+  }
+  .wf-logo[data-ux-logo-size='sm'] {
+    height: 30px;
+  }
+  .wf-logo[data-ux-logo-pos='left'] {
+    justify-content: left;
+  }
+  .wf-logo[data-ux-logo-pos='center'] {
+    justify-content: center;
+  }
+  .wf-logo[data-ux-logo-pos='right'] {
+    justify-content: right;
+  }
+  .wf-header {
+    font-size: 22px;
+    padding-bottom: 35px;
+    font-weight: bold;
+    word-break: break-word;
+  }
+  .wf-sec-wrap{
+    margin-bottom: 40px;
+  }
+  .wf-sec-wrap:first-child .wf-sec-head{
+    margin-top: 0;
+  }
+  .wf-sec-head {
+    margin-bottom: 20px;
+    margin-top: 35px;
+  }
+  .wf-sec-title {
+    font-size: 18px;
+    font-weight: bold;
+    word-break: break-word;
+  }
+  .wf-sec-desc {
+    margin: 0;
+    margin-top: 5px;
+    word-break: break-word;
+  }
+  .wf-row {
+    margin-bottom: 20px;
+  }
+  .wf-row-with-supplementary{
+    margin-bottom: 10px;
+  }
+  .wf-label {
+    padding: 7px 0;
+    word-break: break-word;
+  }
+  .wf-field {
+    text-align: left;
+    word-break: break-word;
+    border: 0;
+    position: relative;
+  }
+  .wf-field-inner {
+    position: relative;
+    display: flex;
+    flex: 1;
+  }
+  .wf-field-input:focus {
+    border: 1px solid #1980d8;
+  }
+  .wf-field-dropdown .wf-field-input:focus{
+    border: none;  /* multipicklist search */
+  }.wf-input-focus.wf-field::after {
+    opacity: 1;
+  }
+  .wf-input-focus.wf-field::after,
+  .wf-field-error-active.wf-field .wf-field-error {
+    display: block;
+  }
+  .wf-field-error-active.wf-field .wf-field-input,.wf-field-error-active.wf-field .wf-field-dropdown {
+    border: 1px solid #FD6B6D;
+    box-shadow: 0 0 1px 1px #F4A2A2;
+  }
+  .wf-field-mandatory .wf-field-inner::before {
+    content: '';
+    position: absolute;
+    left: 0px;
+    background-color: #ff6a6a;
+    width: 3px;
+    height: 100%;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+  }
+  .wf-field-mandatory .wf-field-inner.no-results-elem::before{ 
+    height: 98%;
+  }
+  .wf-field-input,
+  .wf-field-dropdown {
+    width: 100%;
+    border: 1px solid #BDC8D3;
+    border-radius: 4px;
+    padding: 10px 15px;
+    min-height: 38px;
+    font-size: 15px;
+    font-family: inherit;
+  }
+  select:not([data-wform-field='select-multiple']) {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    background-image: url(\"data:image/svg+xml;utf8,<svg fill='black' height='34' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>\");
+    background-repeat: no-repeat;
+    background-position-x: 99%;
+    background-color: #fff;
+    min-width: 70px;
+  }
+  input,
+  select {
+    background-color: #fff;
+  }
+  .wf-field-item {
+    min-height: 38px;
+  }
+  .wf-time-field-wrapper {
+    display: flex;
+    flex: 1;
+  }
+  .wf-time-field-wrapper select {
+    margin-left: 10px;
+  }
+  .wf-form-component .wf-field-error,
+    .wf-form-component .wf-field-help-text {
+    text-align: left;
+  }
+  .wf-field-error {
+    color: #FF5050;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  .wf-field-help-text {
+    color: #515159;
+    font-size: 12px;
+    margin-top: 5px;
+    }
+  .wf-field-help-text-link{
+    text-decoration: none;
+  }
+  .wf-field-checkbox {
+    cursor: pointer;
+    border-radius: 3px;
+    min-width: 14px;
+    min-height: 20px;
+    box-sizing: initial;
+    accent-color: #1980d8;
+    margin-right: 10px;
+    margin-bottom: auto;
+  }
+  .wf-field-dropdown-date {
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .wf-field-dropdown-date {
+    border: 1px solid #BDC8D3;
+    }
+  .wf-field-dropdown-date:hover {
+    border: 1px solid #65C199;
+  }
+  .wform-field-item-upload-input {
+    min-height: 5rem;
+    background-color: #FBFCFD;
+    border: 1px dashed #bdc8d3;
+    line-height: 2.1;
+    cursor: pointer;
+  }
+  .wform-field-item-upload-input:focus {
+    border: 1px dashed #bdc8d3;
+  }
+  .wform-file-upload-input-label {
+    background-color: #fff;
+    background-image: linear-gradient(to top, #F5F8FA, #ffffff);
+    color: #212129;
+    border-color: #d3dbe3;
+    border: 1px solid #d3dbe3;border-radius: 4px;
+    padding: 0.7rem 2rem;
+    font-size: 1.4rem;
+    right: 1rem;
+    transform: translateY(-50%);
+    top: 50%;
+    position: absolute;
+    }
+  input[type='file']::file-selector-button, input[type='file']::-webkit-file-upload-button{
+   opacity: 0; 
+   width: 0;
+   height: 28px;
+  }.wf-row[data-ux-field-appearance='captcha'] .wf-field{
+    display: flex;
+    align-items: center;
+  }
+  .wform-field-item-captcha-input{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .wf-field-captcha-img-wrap{
+    border: 1px solid #BDC8D3;
+    border-radius: 4px;
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    height: initial;
+    overflow: hidden;
+    min-width: 120px;
+  }
+  .wf-field-captcha-img{
+    height: 38px;
+    width: 100%;
+  }
+  .reload-img{
+    font-size: 23px;
+    color: #4B5569;
+    margin-right: 5px;
+  }
+  .reload-captcha{
+    margin-left: 10px;
+    user-select: none
+  }
+  .wf-btn {
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: inherit;
+  }
+  .wf-btn[data-ux-btn-type='default'] {
+    border-radius: 0;
+  }
+  .wf-btn[data-ux-btn-type='primary'] {
+    border-radius: 4px;
+  }
+  .wf-btn[data-ux-btn-type='secondary'] {
+    border-radius: 20px;
+  }
+  .wform-btn-wrap {
+    display: flex;
+    margin-top: 40px;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+  }
+  .wform-poweredby-container {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #23384F;
+    font-size: 13px;
+    padding: 6px 8px;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* ==================== * MultiPicklist Styles * ==================== */
+  .multiselect.wf-field-dropdown {
+    padding: 0;
+    cursor: text;
+    position: relative;
+  }
+  .multiselect.dropbox-active{
+    border-color: #30c384;
+    border-radius: 4px 4px 0 0;
+  }
+  .multiselect.no-results-elem{
+    border-radius: 4px; 
+  }
+  .selected-options.selected-options-field {
+    display: none;
+  }
+  .selected-options{
+    max-height: 150px;
+    overflow: auto;
+    padding: 3px 5px 7px 5px;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 0;
+    min-height: 38px;
+    height: 38px;
+    transition: 0.3s all; 
+    scroll-behavior: smooth;
+  }
+  .selected-options.hide-opt-list{
+    min-height: 0;  
+    height: 0;
+    padding: 0;
+  }
+  .selected-options.set-opt-list{
+    height: auto; 
+  }
+  .selected-options.drp-dwn-no-val{
+    border-right: unset !important;
+  }
+  .dropdown-input.drop-box-closed{
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  .dropdown-input.drop-box-active{
+    border-top-right-radius: 0 !important;
+    border-radius: 4px;
+  }
+  .dN{
+    display: none !important;
+  }
+  .dropdown {
+    position: relative;
+    width: 100%;
+     height: 36px;
+    transition: 0.3s all;
+  }
+  .dropdown.hide-dropdown{
+    height: 0;
+  }
+  .dropdown-input{
+    width: 100%;
+    border: none;
+    outline: none;
+    height: 30px;
+    padding: 5px;
+    border-radius: 4px;
+    border-radius: 4px 4px 0 0;
+    padding-left: 14px;
+  }
+  .dropdown-input::placeholder{
+    color: #919191;
+    font-size: 14px;
+  }
+  .dropdown-menu {
+    position: absolute;
+    display: none;
+    background-color: #fff;
+    border: 1px solid #BDC8D3;
+    border-radius: 0 0 5px 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: calc(100% + 2px);
+    left: -1px;
+    z-index: 3;
+    top: 37px;
+    transition: 0.3s all;
+  }
+  .dropdown-menu.hide-the-inp{
+    top: 0;
+  }
+  .dropdown.open .dropdown-menu {
+    display: block;
+  }
+  .dropdown-menu.dropdown-focus{
+    border-color: #30c384;
+    border-top: 1px solid #E6EBF1;
+  }
+  .multiselect.dropbox-active .dropdown-input{
+    border-top: 0;
+    border-bottom: 0;
+    padding-bottom: 17px;
+    padding-top: 19px;
+    border-left-color: transparent;
+  }
+  .multi-tag{
+    background-color: #CEEBFF;
+    padding: 2px 5px 3px 10px;
+    border-radius: 15px;
+    margin: 5px 5px 0 2px;
+    display: inline-flex;
+    max-width: 96%;
+  }
+  .tag-data-val{
+    cursor: default;
+    max-width: 550px;
+  }
+  .no-results{
+    cursor: default !important;
+    text-align: center;
+    color: #919191;
+    font-size: 14px;
+  }
+  .no-results:hover{
+    background-color: unset !important;
+  }
+  .opt-hide{
+    display: none;
+  }
+  .opt-show{
+    display: block;
+  }
+  .tag-close-btn{
+    margin-left: 3px;
+    padding: 0px 4px 0px;
+    border-radius: 50%;
+    opacity: 0.5;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .multi-tag:hover .tag-close-btn{
+    opacity: 1;
+  }
+  .option{
+    padding: 10px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f5f8;
+  }
+  .option:hover{
+    background-color: #f5f8fa;
+  }
+  .input-not-active{
+    display: none;
+  }
+  .ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  /* ==================== * MultiPicklist Styles * ==================== */
+
+  /* ==================== * Country dropdown Styles * ==================== */
+  
+  .ux-pick-mixed {
+
+         .dropdown-contents {
+          padding: 4px 10px;
+          height: 100%;
+         }
+    .dropdown-menu {
+    width: max-content;
+    max-width: 30rem;
+    top: 42px;
+    border: 1px solid #D2DBE5;
+    border-radius: 4px;
+    box-shadow: 0 1px 15px 0 rgba(0, 0, 0, 0.2);
+
+    .option[data-selected=true] {
+      background-color: #E2F3FC;
+      font-weight: 600;
+    }
+  }
+  .wf-field-dropdown.dropbox-active::after {
+    content: '';
+    border: 2px solid #30c384;
+    border-radius: 3px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    z-index: 1;
+} 
+.wf-field-item:not(.selected-options) {
+  min-height: 36px;
+}
+  }
+  .icon-with-text-dropdown {
+    .dropdown > span {
+      margin-right: 10px;
+    }
+    .icon-field {
+      font-size: 22px;
+    }
+    .icon-text-dropdown {
+      display: flex;
+      align-items: center;
+      > span:first-child {
+        font-size: 22px;
+      }
+    }
+    .option {
+      padding: 4px 14px;
+    }
+  }
+  .dropdown-with-search {
+    .dropdown.open .dropdown-menu {
+      display: flex;
+      flex-direction: column;
+    }
+    .dropdown-items-wrapper {
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+  }
+  .multiple-fields-div {
+  &.flex-1-5 {
+    .field-1 {
+      flex: 1;
+    }
+    .field-2 {
+      flex: 5;
+    }
+  }
+  .wf-field-dropdown {
+    border-radius: 4px 0px 0px 4px;
+    border-right: 0;
+    min-height: 39px;
+  }
+  .wf-field-item:not(.selected-options) {
+  border-radius: 0px 4px 4px 0px;
+}
+}
+.dropdown-menu {
+  .dropdown-search-input {
+    padding: 5px 10px;
+    width: 92%;
+    margin: 10px;
+    border: 1px solid #CDD8E3;
+    border-radius: 4px;
+  }
+  .dropdown-search-input:hover {
+    border: 1px solid #3AC286;
+  }
+  .dropdown-search-input:focus {
+    border: 2px solid #30c384;
+  }
+}
+.dropdown-contents::after {
+  border-left: 0.4rem solid transparent;
+    border-right: 0.4rem solid transparent;
+    border-top: 0.4rem solid black;
+    top: 45%;
+    content: "";
+    position: absolute;
+    right: 1rem;
+    pointer-events: none;
+}
+
+  /* ==================== * Country dropdown Styles * ==================== */
+  
+  /* ==================== *** Form Alignment *** ==================== */
+  .wf-form-component:not([data-ux-form-alignment='top']) .wf-row {
+    display: flex;
+  }
+  .wf-form-component:not([data-ux-form-alignment='top']) .wf-label {
+    word-break: break-word;
+    width: 30%;
+    padding: 1.2rem 2rem 0;
+  }
+  .wf-form-component[data-ux-form-alignment='left'] .wf-label {
+    text-align: left;
+    padding-left: 0;
+  }
+  .wf-form-component[data-ux-form-alignment='right'] .wf-label {
+    text-align: right;
+  }
+  .wf-form-component[data-ux-form-alignment='center'] .wf-label {
+    text-align: center;
+  }
+  .wform-btn-wrap[data-ux-pos='left'] {
+    justify-content: flex-start;
+  }
+  .wform-btn-wrap[data-ux-pos='center'] {
+    justify-content: center;
+  }
+  .wform-btn-wrap[data-ux-pos='right'] {
+    justify-content: flex-end;
+  }
+  .wf-form-component:not([data-ux-form-alignment='top']) .wf-field {
+    width: 70%;
+  }
+  .wf-form-component[data-ux-form-alignment='top'] .wf-label{
+    padding-top:0;
+  }
+  .wf-form-component[data-ux-form-alignment='top'] .reload-captcha{
+    text-align: right;
+  }
+  .wf-row[data-ux-field-appearance='captcha'] .wf-field-inner{
+    height: 38px;
+  }
+  .wf-row[data-ux-field-appearance='captcha'] .wf-field.wf-field-error-active{
+    flex-wrap: wrap;
+  }
+  .wf-row[data-ux-field-appearance='captcha'] .wf-field-error{
+    flex-basis: 100%;
+    width:100%;
+  }
+  /* ==================== *** Form Alignment ends *** ==================== */
+  
+  /* ==================== *** css animations *** ==================== */
+  @keyframes shake {
+    10%,90% {transform: translate3d(-1px, 0, 0);}
+    20%,80% {transform: translate3d(2px, 0, 0);}
+    30%,50%,70% {transform: translate3d(-4px, 0, 0);}
+    40%,60% {transform: translate3d(4px, 0, 0);}
+  }
+  /* ==================== *** css animations ends *** ==================== */
+  
+  /* ==================== *** Mediaquery *** ==================== */
+  @media screen and (max-width: 1024px) {
+    .wf-wrapper {
+    max-width: 700px;
+    width: calc(100% - 40px);
+    border: 0;
+  }
+    .wf-field input[type=text],
+    .wf-field select,
+    .wf-field textarea {
+      width: 100% !important;
+    }
+    .wf-label:empty {
+      display: none;
+    }
+  .wf-field-checkbox {
+    min-width: 18px;
+    min-height: 18px;
+  }
+  }
+  @media screen and (max-width: 768px) {
+    .wf-wrapper {
+    max-width: 700px;
+    width: calc(100% - 40px);
+    border: 0;
+  }
+  .wf-field input[type=text],
+    .wf-field select,
+    .wf-field textarea {
+    width: 100% !important;
+    }
+  .wf-label:empty {
+    display: none;
+    }
+  .wf-form-component[data-ux-form-alignment='top'] .wform-btn-wrap {
+    justify-content: flex-start;
+  }
+  }
+  @media screen and (max-width: 700px) {
+    .dropdown-contents::after{
+      right: 0.5rem;
+    }
+  }
+  @media screen and (max-width: 590px) {
+  .wf-parent {
+    padding: 20px 0;
+  }
+  .wf-wrapper {
+    width: calc(100% - 40px) !Important;
+    border: 0;
+  }
+  .wf-form-component {
+    padding: 20px;
+    padding-bottom:60px;
+  }
+  .wf-field input[type=text],
+  .wf-field select,
+  .wf-field textarea {
+    width: 100% !important;
+  }
+  .wf-label:empty {
+    display: none;
+  }
+  .wf-row[data-ux-field-appearance='date-time'] .wf-field-inner{
+    flex-direction: column;
+  }
+  .wf-row[data-ux-field-appearance='date-time'] .wf-time-field-wrapper{
+    margin-top: 10px;
+  }
+  .wf-row[data-ux-field-appearance='date-time'] .wf-field-item:first-child{
+    margin-left: 0;
+  }
+  .wf-row[data-ux-field-appearance='date-time'] .wf-field-item{
+    flex: 1;
+  }
+  .wf-row[data-ux-field-appearance='captcha'] .wf-field{
+    flex-direction: column;
+  }
+  .wf-row[data-ux-field-appearance='captcha'] .reload-captcha{
+    margin-left: auto;
+  }
+  .wf-row[data-ux-field-appearance='captcha'] .wf-field-inner{
+    width: 100%;
+  }
+  }
+  /* ==================== *** Mediaquery ends *** ==================== */
+  </style>
+  <iframe id='hidden2768176000000628424Frame' name='hidden2768176000000628424Frame' style='display: none;' class='iframe-container'></iframe><div class='wf-parent' style='background-color: &#x23;EAEEF2'>
+    <div class='wf-wrapper' id='BiginWebToRecordFormDiv2768176000000628424'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <META HTTP-EQUIV='content-type' CONTENT='text/html;charset=UTF-8'>
+    <form id='BiginWebToRecordForm2768176000000628424' name='BiginWebToRecordForm2768176000000628424' class='wf-form-component' data-ux-form-alignment='top' style='font-family: Arial;position: relative;font-size:15px;' method='POST' enctype='multipart/form-data' target='hidden2768176000000628424Frame' onSubmit='validateForm2768176000000628424()' accept-charset='UTF-8'>
+  <!-- Do not remove this code. -->
+     <input type='text' style='display:none;' name='xnQsjsdp' value='f2f4a2beac6edd6ae686b60679e4b7cd22d71fd32b121e89ca83acb791582207'/>
+     <input type='hidden' name='zc_gad' id='zc_gad' value=''/>
+     <input type='text' style='display:none;' name='xmIwtLD' value='574669e3b5619c396c71bfb2e759cf53d821556a7fdf50fc9f17b93305aea4de1d1ade137b11ecb069c9e1d9f73bccf8'/>
+     <input type='text' style='display:none;' name='actionType' value='Q29udGFjdHM='/>
+     <input type='hidden' name='rmsg' id='rmsg' value='true'/>
+     <input type='text' style='display:none;' name='returnURL' value='null' />
+     <div class='wf-header'>Validation test form</div>
+     <div id='elementDiv2768176000000628424' class='wf-form-wrapper'>
+        <div class='wf-row'>  
+           <div class='wf-label'>Last Name</div>
+           <div class='wf-field wf-field-mandatory'>
+              <div class='wf-field-inner'>
+              <input name='Last Name' maxlength='80' type='text' value='' class='wf-field-item wf-field-input' oninput='removeError(this)'/>
+              </div>
+           </div>
+        </div>
+        <div class='wf-row'>  
+           <div class='wf-label'>Validation_Multi_picklist</div>
+           <div class='wf-field'>
+              <div class='wf-field-inner'>
+              <div id='multiCONTACTCF2' class='multiselect wf-field-dropdown' onclick='showDropDown2768176000000628424(this)'>
+                 <div class='selected-options hide-opt-list wf-field-item selected-options-field'></div>
+                    <div class='dropdown'>
+                       <input type='text' class='dropdown-input input-not-active wf-field-item wf-field-input' data-wform-field='select-multiple' oninput='removeError(this)' />
+                       <input type='text' name='CONTACTCF2' multipick='true' style='display:none;' />
+                       <ul class='dropdown-menu'>
+                       </ul>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      
+        <div class='wf-row'>  
+          <div class='wf-label'>V_Phone</div>
+          <div class="flex-center-v ux-pick-mixed multiple-fields-div flex-1-5">
+            <div id='multiCONTACTCF10' class='multiselect wf-field-dropdown field-1 dropdown-with-search icon-with-text-dropdown' onclick='showDropDown2768176000000628424(this)'>
+              <div class='selected-options hide-opt-list wf-field-item selected-options-field' style='display:none;'></div>
+              <div class='dropdown flex-center-v dropdown-contents'>
+                <input type='text' class='dropdown-input input-not-active wf-field-item wf-field-input' style='display:none;' data-wform-field='select-multiple' />
+                <input type='text' name='' multipick='true' style='display:none;' />
+                <span class="mR10 f22 content-display-area icon-field"></span>
+                <span class="color-222 content-display-area"></span>
+                <ul class='dropdown-menu'></ul>
+              </div>
+            </div>
+            <div class='wf-field field-2'>
+              <div class='wf-field-inner'>
+                <input fvalidate='true' ftype='mobile' name='CONTACTCF7' maxlength='20' type='text' value='' class='wf-field-item wf-field-input' oninput='removeError(this)'/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='wf-row'>  
+           <div class='wf-label'>multi picklist</div>
+           <div class='wf-field'>
+              <div class='wf-field-inner'>
+              <div id='multiCONTACTCF9' class='multiselect wf-field-dropdown' onclick='showDropDown2768176000000628424(this)'>
+                 <div class='selected-options hide-opt-list wf-field-item selected-options-field'></div>
+                    <div class='dropdown'>
+                       <input type='text' class='dropdown-input input-not-active wf-field-item wf-field-input' data-wform-field='select-multiple' oninput='removeError(this)' />
+                       <input type='text' name='CONTACTCF9' multipick='true' style='display:none;' />
+                       <ul class='dropdown-menu'>
+                       </ul>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <div class='wf-row'>  
+          <div class='wf-label'>V_Phone</div>
+          <div class="flex-center-v ux-pick-mixed multiple-fields-div flex-1-5">
+            <div id='multiCONTACTCF11' class='multiselect wf-field-dropdown field-1 dropdown-with-search icon-with-text-dropdown' onclick='showDropDown2768176000000628424(this)'>
+              <div class='selected-options hide-opt-list wf-field-item selected-options-field' style='display:none;'></div>
+              <div class='dropdown flex-center-v dropdown-contents'>
+                <input type='text' class='dropdown-input input-not-active wf-field-item wf-field-input dN' style='display:none;' data-wform-field='select-multiple' />
+                <input type='text' name='' multipick='true' style='display:none;' />
+                <span class="mR10 f22 content-display-area icon-field"></span>
+                <span class="color-222 content-display-area"></span>
+                <ul class='dropdown-menu'></ul>
+              </div>
+            </div>
+            <div class='wf-field field-2'>
+              <div class='wf-field-inner'>
+                <input fvalidate='true' ftype='mobile' name='CONTACTCF7' maxlength='20' type='text' value='' class='wf-field-item wf-field-input' oninput='removeError(this)'/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='wf-row'>  
+          <div class='wf-label'>Validation_Multi_picklist</div>
+          <div class='wf-field'>
+             <div class='wf-field-inner'>
+             <div id='multiCONTACTCF12' class='multiselect wf-field-dropdown' onclick='showDropDown2768176000000628424(this)'>
+                <div class='selected-options hide-opt-list wf-field-item selected-options-field'></div>
+                   <div class='dropdown'>
+                      <input type='text' class='dropdown-input input-not-active wf-field-item wf-field-input' data-wform-field='select-multiple' oninput='removeError(this)' />
+                      <input type='text' name='CONTACTCF2' multipick='true' style='display:none;' />
+                      <ul class='dropdown-menu'>
+                      </ul>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+        <div class='wform-btn-wrap' data-ux-pos='left'>
+           <input id='formsubmit' type='submit' class='wf-btn' data-ux-btn-type='default' style='background-color:&#x23;1980d8; color: #fff; border: 1px solid &#x23;1980d8;width: auto;' value='Submit'/>
+        </div>
+    </div>
+    <a class='wform-poweredby-container' target='_blank' style='color: #fff;text-decoration: none;display: flex;align-items: center;font-weight: 500;' href='https://localzoho.com/bigin/?utm_source=biginwebforms&utm_medium=organic&utm_id=product' id='poweredBy2768176000000628424'>
+      <span style='padding-right: 5px;color: #C5D4E5;'>Powered by</span>
+      <img src='https://biginqa.localzoho.com/images/bigin-logo-xs.svg' style='margin-right: 5px;'/>
+      <span>Bigin</span>
+    </a>
+    </form>
+    </div>
+  </div>
+  <script>
+   
+       var mndFileds=new Array('Last\x20Name');
+       var fldLangVal=new Array('Last Name');
+      var wfInnerWidth = window.innerWidth;
+      if(wfInnerWidth <= 768){
+         document.forms['BiginWebToRecordForm2768176000000628424'].setAttribute('data-ux-form-alignment', 'top');
+      }
+      var name='';
+      var email='';
+     function removeError(fieldObj) {
+        var parentElement = fieldObj.closest('.wf-field'),
+           childEle = parentElement.getElementsByClassName('wf-field-error')[0];
+        if(childEle) {
+           parentElement.classList.remove('wf-field-error-active');
+           parentElement.removeChild(parentElement.getElementsByClassName('wf-field-error')[0]);
+           parentElement.parentElement.classList.remove('wf-row-with-supplementary');
+        }
+     }
+     function setError(fieldObj, label) {
+        var parentElement = fieldObj.closest('.wf-field'),
+          childEle = parentElement.getElementsByClassName('wf-field-error')[0];
+        if(!childEle) {
+           var spanEle = document.createElement('SPAN');
+           spanEle.setAttribute('class', 'wf-field-error wf-row-with-supplementary');
+           spanEle.innerHTML = label;
+           parentElement.append(spanEle);
+           parentElement.classList.add('wf-field-error-active');
+           parentElement.parentElement.classList.add('wf-row-with-supplementary');
+        }
+     }
+     function validateFields2768176000000628424() {
+        var isReturn = true;
+        var form = document.forms['BiginWebToRecordForm2768176000000628424'];
+        var validateFld = form.querySelectorAll('[fvalidate=true]');
+        var i;
+        for (i = 0; i < validateFld.length; i++)
+        {
+           var validateFldVal = validateFld[i].value;
+           if(validateFldVal !== '') {
+              var fLabel = validateFld[i].parentElement.parentElement.parentElement.getElementsByClassName('wf-label')[0].innerHTML;
+              switch(validateFld[i].getAttribute('ftype')) {
+              case 'email':
+                 if(validateFldVal.match(/^([A-Za-z0-9-._%'+/]+@[A-Za-z0-9.-]+.[a-zA-Z]{2,22})$/) === null) {
+                    setError(validateFld[i], 'Enter valid ' + fLabel);
+                    isReturn = false;
+                 }
+                 break;
+              case 'number':
+                 if(validateFldVal.match(/^[0-9]+$/) === null) {
+                    setError(validateFld[i], 'Enter valid ' + fLabel);
+                    isReturn = false;
+                  }
+                 break;
+              case 'double':
+                 if(validateFldVal.match(/^[0-9]*(\.[0-9]{0,2})?$/) === null) {
+                    setError(validateFld[i], 'Enter valid ' + fLabel);
+                    isReturn = false;
+                  }
+                 break;
+              case 'mobile':
+                  if(validateFldVal.match(/^[0-9a-zA-Z+.()\-;\s]+$/) === null) {
+                    setError(validateFld[i], 'Enter valid ' + fLabel);
+                    isReturn = false;
+                  }
+                 break;
+               }
+           }
+        }
+        return isReturn;
+     }
+     function showDropDown2768176000000628424(_c){
+        var _dd = _c.getElementsByClassName('dropdown')[0],
+         _ddInput = _c.getElementsByClassName('dropdown-input')[0],
+         ddM = _c.querySelector('.dropdown-menu'),
+         _sOpt = _c.getElementsByClassName('selected-options')[0];
+         if(_ddInput && _ddInput.value !== '') {
+  
+           this.removeError(_ddInput);
+  
+         }
+        if(ddM && ddM.childElementCount === 0) {
+           _c.classList.remove('dropbox-active');
+           _sOpt.classList.add('drp-dwn-no-val');
+           return false;
+        }
+        document.querySelectorAll('.dropdown').forEach(dropdwn=>{
+           if(!dropdwn.classList.contains('hide-dropdown')) {
+              dropdwn.classList.add('hide-dropdown');
+           }
+           dropdwn.querySelectorAll('.dropdown-input').forEach(inp=>{
+              if(!inp.classList.contains('dN')) {
+                 inp.classList.add('dN');
+              }
+           });
+        });
+        let dds = document.querySelectorAll('.dropdown');
+        if(dds) {
+           dds.forEach(ddElem=>{
+              if(ddElem.classList.contains('open')) {
+                 ddElem.classList.remove('open');
+              }
+           });
+        }
+        if(_sOpt) {
+          _sOpt.classList.remove('drop-box-closed', 'drp-dwn-no-val', 'selected-options-field');
+          _c.closest('.wf-form-wrapper').querySelectorAll('.multiselect').forEach(ddWrap=>{
+             if(ddWrap.classList.contains('dropbox-active')) {
+                ddWrap.classList.remove('dropbox-active');
+             }
+          });
+        }
+        _c.classList.add('dropbox-active');
+        ddM.classList.add('dropdown-focus');
+        if(_ddInput) {
+          _ddInput.classList.remove('input-not-active', 'drop-box-closed');
+          _ddInput.setAttribute('placeholder', 'Search Here');
+        }
+        if(ddM.childElementCount > 1) {
+           _c.querySelector('.dropdown').classList.remove('hide-dropdown');
+        }
+        let options = _c.querySelectorAll('.option');
+        options.forEach(option=>{
+           if(option.classList.contains('no-results')) {
+              if(!_ddInput.classList.contains('dN')) {
+                 _ddInput.classList.add('dN');
+              }
+           }
+        });
+        if(_dd.classList.contains('dN')) {
+           _dd.classList.remove('dN');
+        }
+        _dd.classList.add('open');
+        if(_ddInput && _ddInput.classList.contains('dN')) {
+           _ddInput.classList.remove('dN');
+        }
+        _c.querySelector('.dropdown').classList.remove('hide-dropdown');
+        if(_ddInput) {
+          _ddInput.focus();
+        }
+        if(event.y + ddM.offsetHeight > window.innerHeight) {
+          ddM.style.top = '-204px'
+        }
+     }
+     function createSingleSelectDrp(eleID, optionsData) {
+      var eleDiv = document.getElementById(eleID),
+         _dd = eleDiv.getElementsByClassName('dropdown')[0],
+         _ddM = eleDiv.querySelector('.dropdown-menu'),
+         input = document.createElement('input'),
+         drpItemsWrapper = document.createElement('div');
+         _ddM.innerHTML = '';
+          input.type = 'text';
+          input.setAttribute('placeholder', 'Search');
+          input.classList.add("dropdown-search-input");
+          drpItemsWrapper.className = 'dropdown-items-wrapper'
+        _ddM.appendChild(input);
+        _ddM.appendChild(drpItemsWrapper)
+         optionsData.dropdownItems.forEach(function(optionValue) {
+              var optionContainer = document.createElement('div');
+              optionContainer.classList.add('option');
+              optionContainer.appendChild(createDrpForObjectType(optionsData,optionValue,eleDiv));
+              if(optionValue.isDefault) {
+                setSelectedOption(optionContainer,eleDiv)
+              }
+              drpItemsWrapper.appendChild(optionContainer);
+        });
+        var options = _ddM.querySelectorAll('.option');
+        options.forEach(function(option) {
+           option.addEventListener('click', function() {
+            setSelectedOption(option,eleDiv)
+           });
+        });
+          input.addEventListener('input', function (ele) {
+            handleSearchForDropdown(ele.srcElement,'.dropdown-items-wrapper');
+        //    var dropdownInput = ele.srcElement,
+        //    dropdownMenu = dropdownInput.parentElement.querySelector('.dropdown-items-wrapper'),
+        //    searchText = dropdownInput.value.toLowerCase(),
+        //    noResults = document.getElementsByClassName('no-results')[0],
+        //    div = document.createElement('div'),
+        //    span = document.createElement('span'),
+        //    options = dropdownMenu.querySelectorAll('.option');
+        //    span.setAttribute('data-value', 'No results');
+        //    div.setAttribute('class', 'option no-results');
+        //    div.dataset.value = 'No options found';
+        //    div.textContent = 'No options found';
+        //    options.forEach(function(option) {
+        //         let optionValue = option.dataset.value.toLowerCase();
+        //       if (optionValue.includes(searchText)) {
+        //          option.classList.add('opt-show');
+        //          option.classList.remove('opt-hide');
+        //       } else {
+        //          option.classList.remove('opt-show');
+        //          option.classList.add('opt-hide');
+        //       }
+        //    });
+        //    for(i = 0; i < options.length; i++){
+        //       if(options[i].classList.contains('opt-hide')){
+        //          if(i == options.length - 1){
+        //             div.appendChild(span);
+        //             if(options[i].classList.contains('no-results')){
+        //                if(noResults.classList.contains('opt-hide')){
+        //                   noResults.classList.remove('opt-hide');
+        //                }
+        //                return false;
+        //             }else{
+        //                dropdownMenu.appendChild(div);
+        //             }
+        //          } 
+        //       } else { 
+        //           if(noResults) {
+        //             noResults.remove();
+        //           }
+        //          return false;
+        //       }
+        //    }
+        });
+     }
+     function handleSearchForDropdown(dropdownInput,dropdownSelector) {
+           var dropdownMenu = dropdownInput.parentElement.querySelector(dropdownSelector),
+           searchText = dropdownInput.value.toLowerCase(),
+           noResults = document.getElementsByClassName('no-results')[0],
+           div = document.createElement('div'),
+           span = document.createElement('span'),
+           options = dropdownMenu.querySelectorAll('.option');
+           span.setAttribute('data-value', 'No results');
+           div.setAttribute('data-value', 'No results');
+           div.setAttribute('class', 'option no-results');
+           div.textContent = 'No options found';
+           options.forEach(function(option) {
+              let optionValue = option.querySelector('span').dataset.value.toLowerCase();
+              if (optionValue.includes(searchText)) {
+                 option.classList.add('opt-show');
+                 option.classList.remove('opt-hide');
+              } else {
+                 option.classList.remove('opt-show');
+                 option.classList.add('opt-hide');
+              }
+           });
+           for(i = 0; i < options.length; i++){
+              if(options[i].classList.contains('opt-hide')){
+                 if(i == options.length - 1){
+                    div.appendChild(span);
+                    if(options[i].classList.contains('no-results')){
+                       if(noResults.classList.contains('opt-hide')){
+                          noResults.classList.remove('opt-hide');
+                       }
+                       return false;
+                    }else{
+                       dropdownMenu.appendChild(div);
+                    }
+                 } 
+              } else { 
+                  if(noResults) {
+                    noResults.remove();
+                  }
+                 return false;
+              }
+           }
+     }
+     function setSelectedOption(option,eleDiv) {
+      if(eleDiv.querySelector('.dropdown-menu').querySelectorAll('.option[data-selected=true]').length > 0){
+        eleDiv.querySelector('.dropdown-menu').querySelectorAll('.option[data-selected=true]')[0].dataset.selected=false;
+      }
+      var content = eleDiv.querySelectorAll('.content-display-area'),
+            content_index=0;
+            Array.from(option.querySelectorAll('span[data-show-in-selection="true"]')).map(x => {
+                content[content_index].innerHTML = x.innerHTML;
+                content_index++
+            })
+            option.dataset.selected=true
+     }
+     function createDrpForObjectType(config,item,eleDiv) {
+      var index = 1,
+      optionTag = document.createElement('span');
+      optionTag.classList.add('icon-text-dropdown')
+      while(config[`displayLabel${index}`]) {
+        var ele = document.createElement('span');
+        ele.innerHTML = item[config[`displayLabel${index}`]];
+        ele.dataset.showInSelection = config.showInSelection.includes(`displayLabel${index}`)
+        ele.style.marginRight = '10px'
+        optionTag.appendChild(ele);
+        optionTag.dataset.value = item[config.searchValue];
+        index++
+      }
+      return optionTag
+     }
+     function createDropdownOptions2768176000000628424(eleID, optionsData, sOpt) {
+        var eleDiv = document.getElementById(eleID),
+         _dd = eleDiv.getElementsByClassName('dropdown')[0],
+         _ddM = eleDiv.querySelector('.dropdown-menu'),
+         _ddInput = eleDiv.getElementsByClassName('dropdown-input')[0],
+         _sOpt = eleDiv.getElementsByClassName('selected-options')[0],
+        _msPar = eleDiv.closest('.wf-field');
+        _ddM.innerHTML = '', singleSelectData = null; 
+        optionsData.forEach(function(optionValue) {
+           if (!sOpt.includes(optionValue)) {
+              var optionContainer = document.createElement('div');
+              optionContainer.classList.add('option');
+              var optionTag = document.createElement('span');
+                optionTag.textContent = optionValue;
+                optionTag.dataset.value = optionValue;
+                optionTag.classList.add('option-txt');
+              optionContainer.appendChild(optionTag);
+              _ddM.appendChild(optionContainer);
+           }
+        });
+        var options = _ddM.querySelectorAll('.option');
+        options.forEach(function(option) {
+           option.addEventListener('click', function() {
+              var optionValue = this.querySelector('span').dataset.value;
+              addSelectedOption(eleID, optionsData, sOpt, optionValue);
+              if(_sOpt.childElementCount > 0){
+                 _sOpt.classList.remove('hide-opt-list');
+                 _ddInput.classList.add('drop-box-active');
+              }
+              let tags = _sOpt.querySelectorAll('.tag-data-val');
+              if(tags) {
+              tags.forEach(tagVal=>{
+              if((tagVal.scrollWidth > tagVal.clientWidth) && !tagVal.getAttribute('title')){
+              tagVal.setAttribute('title', tagVal.getAttribute('data-value'));
+              }
+              })
+              }
+              if(_sOpt.childElementCount > 1) {
+                 _sOpt.classList.add('set-opt-list');
+              }
+              if(_ddM.childElementCount === 0){
+                 _dd.classList.add('hide-dropdown');
+                 if(option && !option.classList.contains('no-results')) {
+                    let div = document.createElement('div'),
+                    span = document.createElement('span');
+                    div.textContent = 'No options found';
+                    span.setAttribute('data-value', 'No results');
+                    div.setAttribute('class', 'option no-results');
+                    div.appendChild(span);
+                    _ddM.appendChild(div);
+                    _ddM.classList.add('hide-the-inp');
+                    _ddInput.classList.add('dN');
+                    eleDiv.classList.add('no-results-elem');
+                    eleDiv.closest('.wf-field-inner').classList.add('no-results-elem');
+                 }else {
+                    _dd.classList.add('dN');
+                    _ddInput.classList.remove('dN');
+                    eleDiv.classList.remove('no-results-elem');
+                    eleDiv.closest('.wf-field-inner').classList.remove('no-results-elem');
+                 }
+              }
+           });
+        });
+        if(_msPar && _msPar.classList.contains('wf-field-error-active')){
+           this.removeError(_ddInput);
+        }
+        if(_sOpt && _sOpt.childElementCount > 4) {
+           _sOpt.lastElementChild.scrollIntoView();
+        }
+     }
+      function addSelectedOption(eleID, optionsData, sOpt, optionValue) {
+        var eleDiv = document.getElementById(eleID),
+         _sOpt = eleDiv.getElementsByClassName('selected-options')[0],
+         _ddInput = eleDiv.getElementsByClassName('dropdown-input')[0]; 
+  
+        if (!sOpt.includes(optionValue)) {
+           sOpt.push(optionValue); 
+  
+           var optionContainer = document.createElement('div');
+           optionContainer.classList.add('selected-option', 'multi-tag'); 
+  
+           var optionTag = document.createElement('span');
+           optionTag.classList.add('tag-data-val', 'ellipsis');
+           optionTag.textContent = optionValue;
+           optionTag.dataset.value = optionValue;
+           optionContainer.appendChild(optionTag);
+  
+           var removeButton = document.createElement('span');
+           removeButton.textContent = 'x';
+           removeButton.classList.add('remove-button', 'tag-close-btn');
+           removeButton.addEventListener('click', function(clseBtn) {
+              var optionContainer = this.parentNode,
+               optionValue = optionContainer.querySelector('span').dataset.value,
+               dropdown = document.getElementsByClassName('dropdown')[0];
+              let closeDD = clseBtn && clseBtn.currentTarget.closest('.multiselect') ? clseBtn.currentTarget.closest('.multiselect').getElementsByClassName('dropdown')[0] : undefined;
+              if(closeDD && closeDD.classList.contains('dN')) {
+                 closeDD.classList.remove('dN');
+                 }
+                 if(clseBtn && clseBtn.currentTarget.previousElementSibling && clseBtn.currentTarget.previousElementSibling.getAttribute('title')) {
+                 clseBtn.currentTarget.previousElementSibling.removeAttribute('title');
+              }
+              _sOpt.removeChild(optionContainer);
+              var index = sOpt.indexOf(optionValue);
+              if (index > -1) {
+                 sOpt.splice(index, 1);
+              }
+              if(_sOpt.childElementCount === 0){
+                 _sOpt.classList.add('hide-opt-list');
+                 _ddInput.classList.remove('drop-box-active');
+                 _sOpt.classList.remove('set-opt-list');
+              }
+              let _ddM = closeDD.getElementsByClassName('dropdown-menu')[0];
+              if(_ddM && _ddM.childElementCount > 0) {
+                 _ddInput.classList.remove('dN');
+                 closeDD.classList.remove('hide-dropdown');
+                 closeDD.querySelector('.dropdown-menu').classList.remove('hide-the-inp');
+              }
+              if(closeDD.closest('.wf-field-inner').classList.contains('no-results-elem')) {
+                 closeDD.closest('.wf-field-inner').classList.remove('no-results-elem');
+                 closeDD.closest('.wf-field-inner').querySelector('.multiselect').classList.remove('no-results-elem');
+              }
+                 createDropdownOptions2768176000000628424(eleID, optionsData, sOpt);
+           });
+           optionContainer.appendChild(removeButton);
+           _sOpt.appendChild(optionContainer);
+        }
+        _ddInput.value = ''; // Clear the input field
+        _ddInput.focus(); // Set focus back to the input field
+        createDropdownOptions2768176000000628424(eleID, optionsData, sOpt);
+     }
+     document.addEventListener('click', function(e){
+        let targetClasses = e.target.classList,
+         classNames = ['multiselect', 'selected-options', 'dropdown-input', 'option', 'option-txt', 'selected-option', 'remove-button', 'dropdown'];
+        if(classNames.some(className => targetClasses.contains(className)) || e.target.closest('.multiselect.icon-with-text-dropdown')){
+           return true;
+        }else{
+           var mLen = multiPickFields.length;
+           for(i=0; i<mLen; i++) {
+           var dropdownMenu = document.querySelectorAll('.dropdown-menu')[i],
+            dropdown = document.getElementsByClassName('dropdown')[i],
+            multiselectBox = document.getElementsByClassName('multiselect')[i],
+            selectedOptions = document.getElementsByClassName('selected-options')[i],
+            dropdownInput = document.getElementsByClassName('dropdown-input')[i],
+            options = dropdownMenu.querySelectorAll('.option');
+            dropdown.classList.remove('open');
+            multiselectBox.classList.remove('dropbox-active');
+            dropdownMenu.classList.remove('dropdown-focus');
+            selectedOptions.classList.add('drop-box-closed');
+            dropdownInput.classList.add('drop-box-closed');
+            if(dropdownInput.value || (multiselectBox.querySelector('.dropdown-search-input') && multiselectBox.querySelector('.dropdown-search-input').value)){
+              if(dropdownInput.value) {
+                dropdownInput.value = '';
+              } else {
+                multiselectBox.querySelector('.dropdown-search-input').value = '';
+              }
+              options.forEach(function(option){
+                if(option.classList.contains('opt-hide')){
+                  option.classList.remove('opt-hide')
+                }
+              });
+            }
+            if(selectedOptions.childNodes.length < 1){
+              selectedOptions.classList.add('selected-options-field');
+              dropdownInput.removeAttribute('placeholder');
+            }else{
+              selectedOptions.classList.remove('selected-options-field');
+            }
+            if(!dropdown.classList.contains('open')) {
+              dropdown.classList.add('hide-dropdown');
+              dropdownInput.classList.add('dN');
+            }else {
+              dropdownInput.classList.remove('dN');
+              dropdown.classList.remove('hide-dropdown');
+            }
+          }
+          noResults = Array.from(document.getElementsByClassName('no-results'));
+          noResults.map(x => x.remove())
+        }
+     });
+     document.querySelectorAll('.dropdown-input').forEach(function(ddEle) {
+        ddEle.addEventListener('input', function (ele) {
+          handleSearchForDropdown(ele.srcElement,'.dropdown-menu');
+          //  var dropdownInput = ele.srcElement,
+          //  dropdownMenu = dropdownInput.parentElement.querySelector('.dropdown-menu'),
+          //  searchText = dropdownInput.value.toLowerCase(),
+          //  noResults = document.getElementsByClassName('no-results')[0],
+          //  div = document.createElement('div'),
+          //  span = document.createElement('span'),
+          //  options = dropdownMenu.querySelectorAll('.option');
+          //  span.setAttribute('data-value', 'No results');
+          //  div.setAttribute('class', 'option no-results');
+          //  div.textContent = 'No options found';
+          //  options.forEach(function(option) {
+          //     let optionValue = option.querySelector('span').dataset.value.toLowerCase();
+          //     if (optionValue.includes(searchText)) {
+          //        option.classList.add('opt-show');
+          //        option.classList.remove('opt-hide');
+          //     } else {
+          //        option.classList.remove('opt-show');
+          //        option.classList.add('opt-hide');
+          //     }
+          //  });
+          //  for(i = 0; i < options.length; i++){
+          //     if(options[i].classList.contains('opt-hide')){
+          //        if(i == options.length - 1){
+          //           div.appendChild(span);
+          //           if(options[i].classList.contains('no-results')){
+          //              if(noResults.classList.contains('opt-hide')){
+          //                 noResults.classList.remove('opt-hide');
+          //              }
+          //              return false;
+          //           }else{
+          //              dropdownMenu.appendChild(div);
+          //           }
+          //        } 
+          //     } else { 
+          //         if(noResults) {
+          //           noResults.remove();
+          //         }
+          //        return false;
+          //     }
+          //  }
+        });
+     });
+     function showOrHideDropdownOptions() {
+      
+     }
+     function validateMultiPick2768176000000628424() {
+        var argL = arguments.length;
+        var form = document.forms['BiginWebToRecordForm2768176000000628424'];
+        for (i = 0; i < argL; i++) {
+           var pickOptions = '',
+            multiPickEle = form.querySelector('[name=' + multiPickFields[i]+']'),
+            optL = arguments[i].length;
+           for (j = 0; j < optL; j++) {
+              if(pickOptions === '') {
+                 pickOptions = arguments[i][j];
+              } else {
+                 pickOptions += ';' + arguments[i][j];
+              }
+           }
+           multiPickEle.value = pickOptions;
+        }
+        return true;
+     }
+  
+      function checkMandatory2768176000000628424() {
+      var isReturn = true;
+      var isNotCaptcha = false;
+      for(i=0;i<mndFileds.length;i++) {
+        var fieldObj=document.forms['BiginWebToRecordForm2768176000000628424'][mndFileds[i]];
+        if(fieldObj) {
+        if (((fieldObj.value).replace(/^\s+|\s+$/g, '')).length==0) {
+          if(fieldObj.type =='file'){
+            setError(fieldObj, 'Please select a file to upload.'); 
+            isReturn = false;
+          }
+          else if(fieldObj.getAttribute('multipick') === 'true'){
+            if(window['sopt' + mndFileds[i]].length == 0) {
+               setError(fieldObj, fldLangVal[i] + ' cannot be empty');
+               isReturn = false;
+            }
+          }
+          else {
+            setError(fieldObj, fldLangVal[i] + ' cannot be empty');
+          isReturn= false;
+          }
+        }  else if(fieldObj.nodeName=='SELECT') {
+          if(fieldObj.options[fieldObj.selectedIndex].value=='-None-') {
+          setError(fieldObj, fldLangVal[i] +' cannot be none.');
+          isReturn = false;
+           }
+        } else if(fieldObj.type =='checkbox'){
+            if(fieldObj.checked == false){
+          setError(fieldObj, 'Please accept  '+fldLangVal[i]);
+          isReturn= false;
+          } 
+         } 
+          }
+      }
+       isNotCaptcha = true;
+      if(!validateFields2768176000000628424()){isReturn = false;}
+      if(isReturn){
+        if(!validateMultiPick2768176000000628424(soptCONTACTCF2, soptCONTACTCF9)){isReturn = false;}
+      }
+      if(!isReturn){
+        var errEle = document.getElementsByClassName('wf-field-error');
+        if(errEle && errEle.length >0){
+          var inputEle = errEle[0].parentElement.getElementsByTagName('input');
+          if(inputEle && inputEle.length == 0) {
+            inputEle = errEle[0].parentElement.getElementsByTagName('select');
+          }
+          if(inputEle && inputEle.length > 0) {
+            inputEle[0].focus();
+          }
+        }
+      }else if(isNotCaptcha){
+        document.getElementById('formsubmit').disabled = true;
+      }
+      return isReturn; 
+      }
+  
+       
+      document.getElementById('hidden2768176000000628424Frame').addEventListener('load', function () {
+        try {
+          var doc = arguments[0].currentTarget.contentWindow.document;
+          if(doc.body.childElementCount !== 0) {
+            arguments[0].currentTarget.style.display = 'block';
+            document.getElementById('BiginWebToRecordForm1000000105005').style.display = 'none';
+          }
+        } catch (error) {
+          arguments[0].currentTarget.style.display = 'block';
+          document.getElementById('BiginWebToRecordForm2768176000000628424').style.display = 'none'
+        }
+      });
+      var multiPickFields=["CONTACTCF2","CONTACTCF9","CONTACTCF12","multiCONTACTCF11","multiCONTACTCF10"]; 
+     _optCONTACTCF2	=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]	;
+     soptCONTACTCF2	=[];
+     createDropdownOptions2768176000000628424('multiCONTACTCF2', _optCONTACTCF2, soptCONTACTCF2); 
+  
+     _optCONTACTCF9	=["Afghanistan","Aland Islands","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruban","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","BelgiumDutch","BelgiumFrench","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Bouvet Island","Brazil","British Indian Ocean Territory","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","CanadaEnglish","CanadaFrench","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Cocos Islands","Colombia","Comoros","Cook Islands","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Democratic Republic of the Congo","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Territories","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guinea","GuineaBissau","Guyana","Haiti","Heard Island And McDonald Islands","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","LuxembourgFrench","LuxembourgGerman","Macao","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","North Korea","North Macedonia","Northern Mariana Islands","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn","Poland","Portugal","Puerto Rico","Qatar","Republic of the Congo","Reunion","Romania","Russia","Rwanda","Saint Helena","Saint Kitts And Nevis","Saint Lucia","Saint Pierre And Miquelon","Saint Vincent And The Grenadines","Samoa","San Marino","Sao Tome And Principe","Saudi Arabia","Senegal","Serbia","Serbia and Montenegro","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Georgia And The South Sandwich Islands","South Korea","Spain","Sri Lanka","Sudan","Suriname","Svalbard And Jan Mayen","Sweden","SwitzerlandFrench","SwitzerlandGerman","SwitzerlandItalian","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-leste","Togo","Tokelau","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Turks And Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","United States Minor Outlying Islands","Uruguay","Uzbekistan","Vanuatu","Vatican","Venezuela","Vietnam","Virgin Islands","Wallis And Futuna","Western Sahara","Yemen","Zambia","Zimbabwe","dIvoire"]	;
+     soptCONTACTCF9	=[];
+     createDropdownOptions2768176000000628424('multiCONTACTCF9', _optCONTACTCF9, soptCONTACTCF9); 
+     createDropdownOptions2768176000000628424('multiCONTACTCF12', _optCONTACTCF9, soptCONTACTCF9); 
+
+     var countries = [
+    {
+        "display_value": "Afghanistan",
+        "reference_value": "Afghanistan",
+        "actual_value": "ps_AF",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127467;"
+    },
+    {
+        "display_value": "Aland Islands",
+        "reference_value": "Aland Islands",
+        "actual_value": "sv_AX",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127485;"
+    },
+    {
+        "display_value": "Albania",
+        "reference_value": "Albania",
+        "actual_value": "sq_AL",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127473;"
+    },
+    {
+        "display_value": "Algeria",
+        "reference_value": "Algeria",
+        "actual_value": "ar_DZ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127465&#127487;"
+    },
+    {
+        "display_value": "American Samoa",
+        "reference_value": "American Samoa",
+        "actual_value": "en_AS",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127480;"
+    },
+    {
+        "display_value": "Andorra",
+        "reference_value": "Andorra",
+        "actual_value": "ca_AD",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127465;"
+    },
+    {
+        "display_value": "Angola",
+        "reference_value": "Angola",
+        "actual_value": "pt_AO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127476;"
+    },
+    {
+        "display_value": "Anguilla",
+        "reference_value": "Anguilla",
+        "actual_value": "en_AI",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127470;"
+    },
+    {
+        "display_value": "Antarctica",
+        "reference_value": "Antarctica",
+        "actual_value": "en_AQ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127478;"
+    },
+    {
+        "display_value": "Antigua and Barbuda",
+        "reference_value": "Antigua and Barbuda",
+        "actual_value": "en_AG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127468;"
+    },
+    {
+        "display_value": "Argentina",
+        "reference_value": "Argentina",
+        "actual_value": "es_AR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127479;"
+    },
+    {
+        "display_value": "Armenia",
+        "reference_value": "Armenia",
+        "actual_value": "hy_AM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127474;"
+    },
+    {
+        "display_value": "Aruban",
+        "reference_value": "Aruban",
+        "actual_value": "nl_AW",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127484;"
+    },
+    {
+        "display_value": "Australia",
+        "reference_value": "Australia",
+        "actual_value": "en_AU",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127482;"
+    },
+    {
+        "display_value": "Austria",
+        "reference_value": "Austria",
+        "actual_value": "de_AT",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127481;"
+    },
+    {
+        "display_value": "Azerbaijan",
+        "reference_value": "Azerbaijan",
+        "actual_value": "az_AZ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127487;"
+    },
+    {
+        "display_value": "Bahamas",
+        "reference_value": "Bahamas",
+        "actual_value": "en_BS",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127480;"
+    },
+    {
+        "display_value": "Bahrain",
+        "reference_value": "Bahrain",
+        "actual_value": "ar_BH",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127469;"
+    },
+    {
+        "display_value": "Bangladesh",
+        "reference_value": "Bangladesh",
+        "actual_value": "bn_BD",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127465;"
+    },
+    {
+        "display_value": "Barbados",
+        "reference_value": "Barbados",
+        "actual_value": "en_BB",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127463;"
+    },
+    {
+        "display_value": "Belarus",
+        "reference_value": "Belarus",
+        "actual_value": "be_BY",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127486;"
+    },
+    {
+        "display_value": "BelgiumDutch",
+        "reference_value": "BelgiumDutch",
+        "actual_value": "nl_BE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127466;"
+    },
+    {
+        "display_value": "BelgiumFrench",
+        "reference_value": "BelgiumFrench",
+        "actual_value": "fr_BE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127466;"
+    },
+    {
+        "display_value": "Belize",
+        "reference_value": "Belize",
+        "actual_value": "en_BZ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127487;"
+    },
+    {
+        "display_value": "Benin",
+        "reference_value": "Benin",
+        "actual_value": "fr_BJ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127471;"
+    },
+    {
+        "display_value": "Bermuda",
+        "reference_value": "Bermuda",
+        "actual_value": "en_BM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127474;"
+    },
+    {
+        "display_value": "Bhutan",
+        "reference_value": "Bhutan",
+        "actual_value": "en_BT",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127481;"
+    },
+    {
+        "display_value": "Bolivia",
+        "reference_value": "Bolivia",
+        "actual_value": "es_BO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127476;"
+    },
+    {
+        "display_value": "Bosnia and Herzegovina",
+        "reference_value": "Bosnia and Herzegovina",
+        "actual_value": "bs_BA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127462;"
+    },
+    {
+        "display_value": "Botswana",
+        "reference_value": "Botswana",
+        "actual_value": "en_BW",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127484;"
+    },
+    {
+        "display_value": "Bouvet Island",
+        "reference_value": "Bouvet Island",
+        "actual_value": "no_BV",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127483;"
+    },
+    {
+        "display_value": "Brazil",
+        "reference_value": "Brazil",
+        "actual_value": "pt_BR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127479;"
+    },
+    {
+        "display_value": "British Indian Ocean Territory",
+        "reference_value": "British Indian Ocean Territory",
+        "actual_value": "en_IO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127470&#127476;"
+    },
+    {
+        "display_value": "British Virgin Islands",
+        "reference_value": "British Virgin Islands",
+        "actual_value": "en_VG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127483&#127468;"
+    },
+    {
+        "display_value": "Brunei",
+        "reference_value": "Brunei",
+        "actual_value": "ms_BN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127475;"
+    },
+    {
+        "display_value": "Bulgaria",
+        "reference_value": "Bulgaria",
+        "actual_value": "bg_BG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127468;"
+    },
+    {
+        "display_value": "Burkina Faso",
+        "reference_value": "Burkina Faso",
+        "actual_value": "fr_BF",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127467;"
+    },
+    {
+        "display_value": "Burundi",
+        "reference_value": "Burundi",
+        "actual_value": "fr_BI",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127463&#127470;"
+    },
+    {
+        "display_value": "Cambodia",
+        "reference_value": "Cambodia",
+        "actual_value": "km_KH",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127472&#127469;"
+    },
+    {
+        "display_value": "Cameroon",
+        "reference_value": "Cameroon",
+        "actual_value": "fr_CM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127474;"
+    },
+    {
+        "display_value": "CanadaEnglish",
+        "reference_value": "CanadaEnglish",
+        "actual_value": "en_CA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127462;"
+    },
+    {
+        "display_value": "CanadaFrench",
+        "reference_value": "CanadaFrench",
+        "actual_value": "fr_CA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127462;"
+    },
+    {
+        "display_value": "Cape Verde",
+        "reference_value": "Cape Verde",
+        "actual_value": "pt_CV",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127483;"
+    },
+    {
+        "display_value": "Cayman Islands",
+        "reference_value": "Cayman Islands",
+        "actual_value": "en_KY",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127472&#127486;"
+    },
+    {
+        "display_value": "Central African Republic",
+        "reference_value": "Central African Republic",
+        "actual_value": "fr_CF",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127467;"
+    },
+    {
+        "display_value": "Chad",
+        "reference_value": "Chad",
+        "actual_value": "ar_TD",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127465;"
+    },
+    {
+        "display_value": "Chile",
+        "reference_value": "Chile",
+        "actual_value": "es_CL",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127473;"
+    },
+    {
+        "display_value": "China",
+        "reference_value": "China",
+        "actual_value": "zh_CN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127475;"
+    },
+    {
+        "display_value": "Christmas Island",
+        "reference_value": "Christmas Island",
+        "actual_value": "en_CX",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127485;"
+    },
+    {
+        "display_value": "Cocos Islands",
+        "reference_value": "Cocos Islands",
+        "actual_value": "en_CC",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127464;"
+    },
+    {
+        "display_value": "Colombia",
+        "reference_value": "Colombia",
+        "actual_value": "es_CO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127476;"
+    },
+    {
+        "display_value": "Comoros",
+        "reference_value": "Comoros",
+        "actual_value": "fr_KM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127472&#127474;"
+    },
+    {
+        "display_value": "Cook Islands",
+        "reference_value": "Cook Islands",
+        "actual_value": "en_CK",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127472;"
+    },
+    {
+        "display_value": "Costa Rica",
+        "reference_value": "Costa Rica",
+        "actual_value": "es_CR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127479;"
+    },
+    {
+        "display_value": "Croatia",
+        "reference_value": "Croatia",
+        "actual_value": "hr_HR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127469&#127479;"
+    },
+    {
+        "display_value": "Cuba",
+        "reference_value": "Cuba",
+        "actual_value": "es_CU",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127482;"
+    },
+    {
+        "display_value": "Cyprus",
+        "reference_value": "Cyprus",
+        "actual_value": "el_CY",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127486;"
+    },
+    {
+        "display_value": "Czech Republic",
+        "reference_value": "Czech Republic",
+        "actual_value": "cs_CZ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127487;"
+    },
+    {
+        "display_value": "Democratic Republic of the Congo",
+        "reference_value": "Democratic Republic of the Congo",
+        "actual_value": "fr_CD",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127465;"
+    },
+    {
+        "display_value": "Denmark",
+        "reference_value": "Denmark",
+        "actual_value": "da_DK",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127465&#127472;"
+    },
+    {
+        "display_value": "Djibouti",
+        "reference_value": "Djibouti",
+        "actual_value": "ar_DJ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127465&#127471;"
+    },
+    {
+        "display_value": "Dominica",
+        "reference_value": "Dominica",
+        "actual_value": "en_DM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127465&#127474;"
+    },
+    {
+        "display_value": "Dominican Republic",
+        "reference_value": "Dominican Republic",
+        "actual_value": "es_DO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127465&#127476;"
+    },
+    {
+        "display_value": "Ecuador",
+        "reference_value": "Ecuador",
+        "actual_value": "es_EC",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127466&#127464;"
+    },
+    {
+        "display_value": "Egypt",
+        "reference_value": "Egypt",
+        "actual_value": "ar_EG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127466&#127468;"
+    },
+    {
+        "display_value": "El Salvador",
+        "reference_value": "El Salvador",
+        "actual_value": "es_SV",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127483;"
+    },
+    {
+        "display_value": "Equatorial Guinea",
+        "reference_value": "Equatorial Guinea",
+        "actual_value": "es_GQ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127478;"
+    },
+    {
+        "display_value": "Eritrea",
+        "reference_value": "Eritrea",
+        "actual_value": "en_ER",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127466&#127479;"
+    },
+    {
+        "display_value": "Estonia",
+        "reference_value": "Estonia",
+        "actual_value": "et_EE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127466&#127466;"
+    },
+    {
+        "display_value": "Eswatini",
+        "reference_value": "Eswatini",
+        "actual_value": "en_SZ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127487;"
+    },
+    {
+        "display_value": "Ethiopia",
+        "reference_value": "Ethiopia",
+        "actual_value": "am_ET",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127466&#127481;"
+    },
+    {
+        "display_value": "Falkland Islands",
+        "reference_value": "Falkland Islands",
+        "actual_value": "en_FK",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127467&#127472;"
+    },
+    {
+        "display_value": "Faroe Islands",
+        "reference_value": "Faroe Islands",
+        "actual_value": "fo_FO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127467&#127476;"
+    },
+    {
+        "display_value": "Fiji",
+        "reference_value": "Fiji",
+        "actual_value": "fj_FJ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127467&#127471;"
+    },
+    {
+        "display_value": "Finland",
+        "reference_value": "Finland",
+        "actual_value": "fi_FI",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127467&#127470;"
+    },
+    {
+        "display_value": "France",
+        "reference_value": "France",
+        "actual_value": "fr_FR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127467&#127479;"
+    },
+    {
+        "display_value": "French Guiana",
+        "reference_value": "French Guiana",
+        "actual_value": "fr_GF",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127467;"
+    },
+    {
+        "display_value": "French Polynesia",
+        "reference_value": "French Polynesia",
+        "actual_value": "fr_PF",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127467;"
+    },
+    {
+        "display_value": "French Southern Territories",
+        "reference_value": "French Southern Territories",
+        "actual_value": "fr_TF",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127467;"
+    },
+    {
+        "display_value": "Gabon",
+        "reference_value": "Gabon",
+        "actual_value": "fr_GA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127462;"
+    },
+    {
+        "display_value": "Gambia",
+        "reference_value": "Gambia",
+        "actual_value": "en_GM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127474;"
+    },
+    {
+        "display_value": "Georgia",
+        "reference_value": "Georgia",
+        "actual_value": "ka_GE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127466;"
+    },
+    {
+        "display_value": "Germany",
+        "reference_value": "Germany",
+        "actual_value": "de_DE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127465&#127466;"
+    },
+    {
+        "display_value": "Ghana",
+        "reference_value": "Ghana",
+        "actual_value": "en_GH",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127469;"
+    },
+    {
+        "display_value": "Gibraltar",
+        "reference_value": "Gibraltar",
+        "actual_value": "en_GI",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127470;"
+    },
+    {
+        "display_value": "Greece",
+        "reference_value": "Greece",
+        "actual_value": "el_GR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127479;"
+    },
+    {
+        "display_value": "Greenland",
+        "reference_value": "Greenland",
+        "actual_value": "kl_GL",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127473;"
+    },
+    {
+        "display_value": "Grenada",
+        "reference_value": "Grenada",
+        "actual_value": "en_GD",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127465;"
+    },
+    {
+        "display_value": "Guadeloupe",
+        "reference_value": "Guadeloupe",
+        "actual_value": "fr_GP",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127477;"
+    },
+    {
+        "display_value": "Guam",
+        "reference_value": "Guam",
+        "actual_value": "en_GU",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127482;"
+    },
+    {
+        "display_value": "Guatemala",
+        "reference_value": "Guatemala",
+        "actual_value": "es_GT",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127481;"
+    },
+    {
+        "display_value": "Guinea",
+        "reference_value": "Guinea",
+        "actual_value": "fr_GN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127475;"
+    },
+    {
+        "display_value": "GuineaBissau",
+        "reference_value": "GuineaBissau",
+        "actual_value": "pt_GW",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127484;"
+    },
+    {
+        "display_value": "Guyana",
+        "reference_value": "Guyana",
+        "actual_value": "en_GY",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127486;"
+    },
+    {
+        "display_value": "Haiti",
+        "reference_value": "Haiti",
+        "actual_value": "fr_HT",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127469&#127481;"
+    },
+    {
+        "display_value": "Heard Island And McDonald Islands",
+        "reference_value": "Heard Island And McDonald Islands",
+        "actual_value": "en_HM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127469&#127474;"
+    },
+    {
+        "display_value": "Honduras",
+        "reference_value": "Honduras",
+        "actual_value": "es_HN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127469&#127475;"
+    },
+    {
+        "display_value": "Hong Kong",
+        "reference_value": "Hong Kong",
+        "actual_value": "zh_HK",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127469&#127472;"
+    },
+    {
+        "display_value": "Hungary",
+        "reference_value": "Hungary",
+        "actual_value": "hu_HU",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127469&#127482;"
+    },
+    {
+        "display_value": "Iceland",
+        "reference_value": "Iceland",
+        "actual_value": "is_IS",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127470&#127480;"
+    },
+    {
+        "display_value": "India",
+        "reference_value": "India",
+        "actual_value": "en_IN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127470&#127475;"
+    },
+    {
+        "display_value": "Indonesia",
+        "reference_value": "Indonesia",
+        "actual_value": "id_ID",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127470&#127465;"
+    },
+    {
+        "display_value": "Iran",
+        "reference_value": "Iran",
+        "actual_value": "fa_IR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127470&#127479;"
+    },
+    {
+        "display_value": "Iraq",
+        "reference_value": "Iraq",
+        "actual_value": "ar_IQ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127470&#127478;"
+    },
+    {
+        "display_value": "Ireland",
+        "reference_value": "Ireland",
+        "actual_value": "en_IE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127470&#127466;"
+    },
+    {
+        "display_value": "Israel",
+        "reference_value": "Israel",
+        "actual_value": "iw_IL",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127470&#127473;"
+    },
+    {
+        "display_value": "Italy",
+        "reference_value": "Italy",
+        "actual_value": "it_IT",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127470&#127481;"
+    },
+    {
+        "display_value": "Jamaica",
+        "reference_value": "Jamaica",
+        "actual_value": "en_JM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127471&#127474;"
+    },
+    {
+        "display_value": "Japan",
+        "reference_value": "Japan",
+        "actual_value": "ja_JP",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127471&#127477;"
+    },
+    {
+        "display_value": "Jordan",
+        "reference_value": "Jordan",
+        "actual_value": "ar_JO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127471&#127476;"
+    },
+    {
+        "display_value": "Kazakhstan",
+        "reference_value": "Kazakhstan",
+        "actual_value": "ru_KZ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127472&#127487;"
+    },
+    {
+        "display_value": "Kenya",
+        "reference_value": "Kenya",
+        "actual_value": "sw_KE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127472&#127466;"
+    },
+    {
+        "display_value": "Kiribati",
+        "reference_value": "Kiribati",
+        "actual_value": "en_KI",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127472&#127470;"
+    },
+    {
+        "display_value": "Kuwait",
+        "reference_value": "Kuwait",
+        "actual_value": "ar_KW",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127472&#127484;"
+    },
+    {
+        "display_value": "Kyrgyzstan",
+        "reference_value": "Kyrgyzstan",
+        "actual_value": "uz_KG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127472&#127468;"
+    },
+    {
+        "display_value": "Laos",
+        "reference_value": "Laos",
+        "actual_value": "lo_LA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127462;"
+    },
+    {
+        "display_value": "Latvia",
+        "reference_value": "Latvia",
+        "actual_value": "lv_LV",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127483;"
+    },
+    {
+        "display_value": "Lebanon",
+        "reference_value": "Lebanon",
+        "actual_value": "ar_LB",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127463;"
+    },
+    {
+        "display_value": "Lesotho",
+        "reference_value": "Lesotho",
+        "actual_value": "en_LS",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127480;"
+    },
+    {
+        "display_value": "Liberia",
+        "reference_value": "Liberia",
+        "actual_value": "en_LR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127479;"
+    },
+    {
+        "display_value": "Libya",
+        "reference_value": "Libya",
+        "actual_value": "ar_LY",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127486;"
+    },
+    {
+        "display_value": "Liechtenstein",
+        "reference_value": "Liechtenstein",
+        "actual_value": "de_LI",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127470;"
+    },
+    {
+        "display_value": "Lithuania",
+        "reference_value": "Lithuania",
+        "actual_value": "lt_LT",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127481;"
+    },
+    {
+        "display_value": "LuxembourgFrench",
+        "reference_value": "LuxembourgFrench",
+        "actual_value": "fr_LU",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127482;"
+    },
+    {
+        "display_value": "LuxembourgGerman",
+        "reference_value": "LuxembourgGerman",
+        "actual_value": "de_LU",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127482;"
+    },
+    {
+        "display_value": "Macao",
+        "reference_value": "Macao",
+        "actual_value": "zh_MO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127476;"
+    },
+    {
+        "display_value": "Madagascar",
+        "reference_value": "Madagascar",
+        "actual_value": "en_MG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127468;"
+    },
+    {
+        "display_value": "Malawi",
+        "reference_value": "Malawi",
+        "actual_value": "en_MW",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127484;"
+    },
+    {
+        "display_value": "Malaysia",
+        "reference_value": "Malaysia",
+        "actual_value": "ms_MY",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127486;"
+    },
+    {
+        "display_value": "Maldives",
+        "reference_value": "Maldives",
+        "actual_value": "dv_MV",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127483;"
+    },
+    {
+        "display_value": "Mali",
+        "reference_value": "Mali",
+        "actual_value": "fr_ML",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127473;"
+    },
+    {
+        "display_value": "Malta",
+        "reference_value": "Malta",
+        "actual_value": "mt_MT",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127481;"
+    },
+    {
+        "display_value": "Marshall Islands",
+        "reference_value": "Marshall Islands",
+        "actual_value": "en_MH",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127469;"
+    },
+    {
+        "display_value": "Martinique",
+        "reference_value": "Martinique",
+        "actual_value": "fr_MQ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127478;"
+    },
+    {
+        "display_value": "Mauritania",
+        "reference_value": "Mauritania",
+        "actual_value": "ar_MR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127479;"
+    },
+    {
+        "display_value": "Mauritius",
+        "reference_value": "Mauritius",
+        "actual_value": "en_MU",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127482;"
+    },
+    {
+        "display_value": "Mayotte",
+        "reference_value": "Mayotte",
+        "actual_value": "fr_YT",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127486&#127481;"
+    },
+    {
+        "display_value": "Mexico",
+        "reference_value": "Mexico",
+        "actual_value": "es_MX",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127485;"
+    },
+    {
+        "display_value": "Micronesia",
+        "reference_value": "Micronesia",
+        "actual_value": "en_FM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127467&#127474;"
+    },
+    {
+        "display_value": "Moldova",
+        "reference_value": "Moldova",
+        "actual_value": "ro_MD",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127465;"
+    },
+    {
+        "display_value": "Monaco",
+        "reference_value": "Monaco",
+        "actual_value": "fr_MC",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127464;"
+    },
+    {
+        "display_value": "Mongolia",
+        "reference_value": "Mongolia",
+        "actual_value": "mn_MN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127475;"
+    },
+    {
+        "display_value": "Montenegro",
+        "reference_value": "Montenegro",
+        "actual_value": "sr_ME",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127466;"
+    },
+    {
+        "display_value": "Montserrat",
+        "reference_value": "Montserrat",
+        "actual_value": "en_MS",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127480;"
+    },
+    {
+        "display_value": "Morocco",
+        "reference_value": "Morocco",
+        "actual_value": "ar_MA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127462;"
+    },
+    {
+        "display_value": "Mozambique",
+        "reference_value": "Mozambique",
+        "actual_value": "pt_MZ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127487;"
+    },
+    {
+        "display_value": "Myanmar",
+        "reference_value": "Myanmar",
+        "actual_value": "my_MM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127474;"
+    },
+    {
+        "display_value": "Namibia",
+        "reference_value": "Namibia",
+        "actual_value": "en_NA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127462;"
+    },
+    {
+        "display_value": "Nauru",
+        "reference_value": "Nauru",
+        "actual_value": "en_NR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127479;"
+    },
+    {
+        "display_value": "Nepal",
+        "reference_value": "Nepal",
+        "actual_value": "ne_NP",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127477;"
+    },
+    {
+        "display_value": "Netherlands",
+        "reference_value": "Netherlands",
+        "actual_value": "nl_NL",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127473;"
+    },
+    {
+        "display_value": "Netherlands Antilles",
+        "reference_value": "Netherlands Antilles",
+        "actual_value": "nl_AN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127475;"
+    },
+    {
+        "display_value": "New Caledonia",
+        "reference_value": "New Caledonia",
+        "actual_value": "fr_NC",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127464;"
+    },
+    {
+        "display_value": "New Zealand",
+        "reference_value": "New Zealand",
+        "actual_value": "en_NZ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127487;"
+    },
+    {
+        "display_value": "Nicaragua",
+        "reference_value": "Nicaragua",
+        "actual_value": "es_NI",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127470;"
+    },
+    {
+        "display_value": "Niger",
+        "reference_value": "Niger",
+        "actual_value": "fr_NE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127466;"
+    },
+    {
+        "display_value": "Nigeria",
+        "reference_value": "Nigeria",
+        "actual_value": "en_NG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127468;"
+    },
+    {
+        "display_value": "Niue",
+        "reference_value": "Niue",
+        "actual_value": "en_NU",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127482;"
+    },
+    {
+        "display_value": "Norfolk Island",
+        "reference_value": "Norfolk Island",
+        "actual_value": "en_NF",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127467;"
+    },
+    {
+        "display_value": "North Korea",
+        "reference_value": "North Korea",
+        "actual_value": "ko_KP",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127472&#127477;"
+    },
+    {
+        "display_value": "North Macedonia",
+        "reference_value": "North Macedonia",
+        "actual_value": "mk_MK",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127472;"
+    },
+    {
+        "display_value": "Northern Mariana Islands",
+        "reference_value": "Northern Mariana Islands",
+        "actual_value": "en_MP",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127474&#127477;"
+    },
+    {
+        "display_value": "Norway",
+        "reference_value": "Norway",
+        "actual_value": "no_NO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127475&#127476;"
+    },
+    {
+        "display_value": "Oman",
+        "reference_value": "Oman",
+        "actual_value": "ar_OM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127476&#127474;"
+    },
+    {
+        "display_value": "Pakistan",
+        "reference_value": "Pakistan",
+        "actual_value": "en_PK",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127472;"
+    },
+    {
+        "display_value": "Palau",
+        "reference_value": "Palau",
+        "actual_value": "en_PW",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127484;"
+    },
+    {
+        "display_value": "Palestine",
+        "reference_value": "Palestine",
+        "actual_value": "ar_PS",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127480;"
+    },
+    {
+        "display_value": "Panama",
+        "reference_value": "Panama",
+        "actual_value": "es_PA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127462;"
+    },
+    {
+        "display_value": "Papua New Guinea",
+        "reference_value": "Papua New Guinea",
+        "actual_value": "en_PG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127468;"
+    },
+    {
+        "display_value": "Paraguay",
+        "reference_value": "Paraguay",
+        "actual_value": "es_PY",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127486;"
+    },
+    {
+        "display_value": "Peru",
+        "reference_value": "Peru",
+        "actual_value": "es_PE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127466;"
+    },
+    {
+        "display_value": "Philippines",
+        "reference_value": "Philippines",
+        "actual_value": "en_PH",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127469;"
+    },
+    {
+        "display_value": "Pitcairn",
+        "reference_value": "Pitcairn",
+        "actual_value": "en_PN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127475;"
+    },
+    {
+        "display_value": "Poland",
+        "reference_value": "Poland",
+        "actual_value": "pl_PL",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127473;"
+    },
+    {
+        "display_value": "Portugal",
+        "reference_value": "Portugal",
+        "actual_value": "pt_PT",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127481;"
+    },
+    {
+        "display_value": "Puerto Rico",
+        "reference_value": "Puerto Rico",
+        "actual_value": "es_PR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127479;"
+    },
+    {
+        "display_value": "Qatar",
+        "reference_value": "Qatar",
+        "actual_value": "ar_QA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127478&#127462;"
+    },
+    {
+        "display_value": "Republic of the Congo",
+        "reference_value": "Republic of the Congo",
+        "actual_value": "fr_CG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127468;"
+    },
+    {
+        "display_value": "Reunion",
+        "reference_value": "Reunion",
+        "actual_value": "fr_RE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127479&#127466;"
+    },
+    {
+        "display_value": "Romania",
+        "reference_value": "Romania",
+        "actual_value": "ro_RO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127479&#127476;"
+    },
+    {
+        "display_value": "Russia",
+        "reference_value": "Russia",
+        "actual_value": "ru_RU",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127479&#127482;"
+    },
+    {
+        "display_value": "Rwanda",
+        "reference_value": "Rwanda",
+        "actual_value": "rw_RW",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127479&#127484;"
+    },
+    {
+        "display_value": "Saint Helena",
+        "reference_value": "Saint Helena",
+        "actual_value": "en_SH",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127469;"
+    },
+    {
+        "display_value": "Saint Kitts And Nevis",
+        "reference_value": "Saint Kitts And Nevis",
+        "actual_value": "en_KN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127472&#127475;"
+    },
+    {
+        "display_value": "Saint Lucia",
+        "reference_value": "Saint Lucia",
+        "actual_value": "en_LC",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127464;"
+    },
+    {
+        "display_value": "Saint Pierre And Miquelon",
+        "reference_value": "Saint Pierre And Miquelon",
+        "actual_value": "fr_PM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127477&#127474;"
+    },
+    {
+        "display_value": "Saint Vincent And The Grenadines",
+        "reference_value": "Saint Vincent And The Grenadines",
+        "actual_value": "en_VC",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127483&#127464;"
+    },
+    {
+        "display_value": "Samoa",
+        "reference_value": "Samoa",
+        "actual_value": "en_WS",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127484&#127480;"
+    },
+    {
+        "display_value": "San Marino",
+        "reference_value": "San Marino",
+        "actual_value": "it_SM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127474;"
+    },
+    {
+        "display_value": "Sao Tome And Principe",
+        "reference_value": "Sao Tome And Principe",
+        "actual_value": "pt_ST",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127481;"
+    },
+    {
+        "display_value": "Saudi Arabia",
+        "reference_value": "Saudi Arabia",
+        "actual_value": "ar_SA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127462;"
+    },
+    {
+        "display_value": "Senegal",
+        "reference_value": "Senegal",
+        "actual_value": "fr_SN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127475;"
+    },
+    {
+        "display_value": "Serbia",
+        "reference_value": "Serbia",
+        "actual_value": "sr_RS",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127479&#127480;"
+    },
+    {
+        "display_value": "Serbia and Montenegro",
+        "reference_value": "Serbia and Montenegro",
+        "actual_value": "sr_CS",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127480;"
+    },
+    {
+        "display_value": "Seychelles",
+        "reference_value": "Seychelles",
+        "actual_value": "en_SC",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127464;"
+    },
+    {
+        "display_value": "Sierra Leone",
+        "reference_value": "Sierra Leone",
+        "actual_value": "en_SL",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127473;"
+    },
+    {
+        "display_value": "Singapore",
+        "reference_value": "Singapore",
+        "actual_value": "en_SG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127468;"
+    },
+    {
+        "display_value": "Slovakia",
+        "reference_value": "Slovakia",
+        "actual_value": "sk_SK",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127472;"
+    },
+    {
+        "display_value": "Slovenia",
+        "reference_value": "Slovenia",
+        "actual_value": "sl_SI",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127470;"
+    },
+    {
+        "display_value": "Solomon Islands",
+        "reference_value": "Solomon Islands",
+        "actual_value": "en_SB",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127463;"
+    },
+    {
+        "display_value": "Somalia",
+        "reference_value": "Somalia",
+        "actual_value": "so_SO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127476;"
+    },
+    {
+        "display_value": "South Africa",
+        "reference_value": "South Africa",
+        "actual_value": "en_ZA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127487&#127462;"
+    },
+    {
+        "display_value": "South Georgia And The South Sandwich Islands",
+        "reference_value": "South Georgia And The South Sandwich Islands",
+        "actual_value": "en_GS",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127480;"
+    },
+    {
+        "display_value": "South Korea",
+        "reference_value": "South Korea",
+        "actual_value": "ko_KR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127472&#127479;"
+    },
+    {
+        "display_value": "Spain",
+        "reference_value": "Spain",
+        "actual_value": "es_ES",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127466&#127480;"
+    },
+    {
+        "display_value": "Sri Lanka",
+        "reference_value": "Sri Lanka",
+        "actual_value": "si_LK",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127473&#127472;"
+    },
+    {
+        "display_value": "Sudan",
+        "reference_value": "Sudan",
+        "actual_value": "ar_SD",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127465;"
+    },
+    {
+        "display_value": "Suriname",
+        "reference_value": "Suriname",
+        "actual_value": "nl_SR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127479;"
+    },
+    {
+        "display_value": "Svalbard And Jan Mayen",
+        "reference_value": "Svalbard And Jan Mayen",
+        "actual_value": "no_SJ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127471;"
+    },
+    {
+        "display_value": "Sweden",
+        "reference_value": "Sweden",
+        "actual_value": "sv_SE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127466;"
+    },
+    {
+        "display_value": "SwitzerlandFrench",
+        "reference_value": "SwitzerlandFrench",
+        "actual_value": "fr_CH",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127469;"
+    },
+    {
+        "display_value": "SwitzerlandGerman",
+        "reference_value": "SwitzerlandGerman",
+        "actual_value": "de_CH",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127469;"
+    },
+    {
+        "display_value": "SwitzerlandItalian",
+        "reference_value": "SwitzerlandItalian",
+        "actual_value": "it_CH",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127469;"
+    },
+    {
+        "display_value": "Syria",
+        "reference_value": "Syria",
+        "actual_value": "ar_SY",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127480&#127486;"
+    },
+    {
+        "display_value": "Taiwan",
+        "reference_value": "Taiwan",
+        "actual_value": "zh_TW",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127484;"
+    },
+    {
+        "display_value": "Tajikistan",
+        "reference_value": "Tajikistan",
+        "actual_value": "fa_TJ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127471;"
+    },
+    {
+        "display_value": "Tanzania",
+        "reference_value": "Tanzania",
+        "actual_value": "sw_TZ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127487;"
+    },
+    {
+        "display_value": "Thailand",
+        "reference_value": "Thailand",
+        "actual_value": "th_TH",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127469;"
+    },
+    {
+        "display_value": "Timor-leste",
+        "reference_value": "Timor-leste",
+        "actual_value": "pt_TL",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127473;"
+    },
+    {
+        "display_value": "Togo",
+        "reference_value": "Togo",
+        "actual_value": "fr_TG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127468;"
+    },
+    {
+        "display_value": "Tokelau",
+        "reference_value": "Tokelau",
+        "actual_value": "en_TK",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127472;"
+    },
+    {
+        "display_value": "Tonga",
+        "reference_value": "Tonga",
+        "actual_value": "to_TO",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127476;"
+    },
+    {
+        "display_value": "Trinidad and Tobago",
+        "reference_value": "Trinidad and Tobago",
+        "actual_value": "en_TT",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127481;"
+    },
+    {
+        "display_value": "Tunisia",
+        "reference_value": "Tunisia",
+        "actual_value": "ar_TN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127475;"
+    },
+    {
+        "display_value": "Turkey",
+        "reference_value": "Turkey",
+        "actual_value": "tr_TR",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127479;"
+    },
+    {
+        "display_value": "Turkmenistan",
+        "reference_value": "Turkmenistan",
+        "actual_value": "tk_TM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127474;"
+    },
+    {
+        "display_value": "Turks And Caicos Islands",
+        "reference_value": "Turks And Caicos Islands",
+        "actual_value": "en_TC",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127464;"
+    },
+    {
+        "display_value": "Tuvalu",
+        "reference_value": "Tuvalu",
+        "actual_value": "en_TV",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127481&#127483;"
+    },
+    {
+        "display_value": "Uganda",
+        "reference_value": "Uganda",
+        "actual_value": "en_UG",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127482&#127468;"
+    },
+    {
+        "display_value": "Ukraine",
+        "reference_value": "Ukraine",
+        "actual_value": "uk_UA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127482&#127462;"
+    },
+    {
+        "display_value": "United Arab Emirates",
+        "reference_value": "United Arab Emirates",
+        "actual_value": "ar_AE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127462&#127466;"
+    },
+    {
+        "display_value": "United Kingdom",
+        "reference_value": "United Kingdom",
+        "actual_value": "en_GB",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127468&#127463;"
+    },
+    {
+        "display_value": "United States",
+        "reference_value": "United States",
+        "actual_value": "en_US",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127482&#127480;"
+    },
+    {
+        "display_value": "United States Minor Outlying Islands",
+        "reference_value": "United States Minor Outlying Islands",
+        isDefault: true,
+        "actual_value": "en_UM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127482&#127474;"
+    },
+    {
+        "display_value": "Uruguay",
+        "reference_value": "Uruguay",
+        "actual_value": "es_UY",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127482&#127486;"
+    },
+    {
+        "display_value": "Uzbekistan",
+        "reference_value": "Uzbekistan",
+        "actual_value": "uz_UZ",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127482&#127487;"
+    },
+    {
+        "display_value": "Vanuatu",
+        "reference_value": "Vanuatu",
+        "actual_value": "bi_VU",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127483&#127482;"
+    },
+    {
+        "display_value": "Vatican",
+        "reference_value": "Vatican",
+        "actual_value": "it_VA",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127483&#127462;"
+    },
+    {
+        "display_value": "Venezuela",
+        "reference_value": "Venezuela",
+        "actual_value": "es_VE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127483&#127466;"
+    },
+    {
+        "display_value": "Vietnam",
+        "reference_value": "Vietnam",
+        "actual_value": "vi_VN",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127483&#127475;"
+    },
+    {
+        "display_value": "Virgin Islands",
+        "reference_value": "Virgin Islands",
+        "actual_value": "en_VI",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127483&#127470;"
+    },
+    {
+        "display_value": "Wallis And Futuna",
+        "reference_value": "Wallis And Futuna",
+        "actual_value": "fr_WF",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127484&#127467;"
+    },
+    {
+        "display_value": "Western Sahara",
+        "reference_value": "Western Sahara",
+        "actual_value": "ar_EH",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127466&#127469;"
+    },
+    {
+        "display_value": "Yemen",
+        "reference_value": "Yemen",
+        "actual_value": "ar_YE",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127486&#127466;"
+    },
+    {
+        "display_value": "Zambia",
+        "reference_value": "Zambia",
+        "actual_value": "en_ZM",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127487&#127474;"
+    },
+    {
+        "display_value": "Zimbabwe",
+        "reference_value": "Zimbabwe",
+        "actual_value": "en_ZW",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127487&#127484;"
+    },
+    {
+        "display_value": "dIvoire",
+        "reference_value": "dIvoire",
+        "actual_value": "fr_CI",
+        "country_code": "+35",
+        "unicodeCharForFlag": "&#127464&#127470;"
+    }
+]
+var singleSelectDrpData = {
+  dropdownItems: countries,
+  displayLabel1: 'unicodeCharForFlag',
+  displayLabel2: 'display_value',
+  displayLabel3: 'country_code',
+  searchValue: 'display_value',
+  showInSelection: ['displayLabel1','displayLabel3']
+}
+createSingleSelectDrp('multiCONTACTCF10', singleSelectDrpData); 
+createSingleSelectDrp('multiCONTACTCF11', singleSelectDrpData); 
+
+  </script>
+      <script id='wf_script' src='https://biginqa.localzoho.com/crm/WebformScriptServlet?rid=574669e3b5619c396c71bfb2e759cf53d821556a7fdf50fc9f17b93305aea4de1d1ade137b11ecb069c9e1d9f73bccf8gidf2f4a2beac6edd6ae686b60679e4b7cd22d71fd32b121e89ca83acb791582207'></script>
+</html>
