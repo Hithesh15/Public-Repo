@@ -368,6 +368,13 @@
     border-color: #30c384;
     border-radius: 4px 4px 0 0;
   }
+  .multiselect.dropbox-active.dropdownTop:not(.ux-pick-mixed .multiselect.dropbox-active) {
+    border-radius: 0 0 4px 4px;
+    .dropdown-input {
+      min-height: 36px;
+      border-radius: 0 0 4px 4px;
+    }
+  }
   .multiselect.no-results-elem{
     border-radius: 4px; 
   }
@@ -454,6 +461,10 @@
     border-color: #30c384;
     border-top: 1px solid #E6EBF1;
   }
+  .dropdown-menu.dropdown-focus.dropdownTop:not(.ux-pick-mixed .dropdown-menu.dropdown-focus){
+    border-top: 1px solid #30c384;
+    border-radius: 5px 5px 0 0;
+  }
   .multiselect.dropbox-active .dropdown-input{
     border-top: 0;
     border-bottom: 0;
@@ -517,7 +528,7 @@
   }
   /* ==================== * MultiPicklist Styles * ==================== */
 
-  /* ==================== * Country dropdown Styles * ==================== */
+  /* ==================== * Mixed dropdown Styles * ==================== */
   
   .ux-pick-mixed {
 
@@ -594,7 +605,6 @@
   .wf-field-dropdown {
     border-radius: 4px 0px 0px 4px;
     border-right: 0;
-    min-height: 39px;
   }
   .wf-field-item:not(.selected-options) {
   border-radius: 0px 4px 4px 0px;
@@ -1037,7 +1047,13 @@
           _ddInput.focus();
         }
         if(event.y + ddM.offsetHeight > window.innerHeight) {
-          ddM.style.top = '-204px'
+          _dd.closest('.wf-field-dropdown').classList.add('dropdownTop')
+          ddM.classList.add('dropdownTop');
+          ddM.style.top = '-' + (ddM.closest('.ux-pick-mixed') ? ddM.offsetHeight + 4 :  ddM.offsetHeight) + 'px';
+        } else {
+          _dd.closest('.wf-field-dropdown').classList.remove('dropdownTop')
+          ddM.classList.remove('dropdownTop')
+          ddM.style.top = ''
         }
      }
      function createSingleSelectDrp(eleID, optionsData) {
