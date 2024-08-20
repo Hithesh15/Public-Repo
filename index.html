@@ -950,14 +950,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
        var fldLangVal=new Array('Last Name');
       var wfInnerWidth = window.innerWidth;
       function openDatePicker() {
-        // document.getElementById('date_field').focus();
-        // setTimeout(function() {
-        try { 
-          document.getElementById('date_field').showPicker();
-        } catch {
+        if(navigator.userAgent.indexOf("Safari") > -1) {
           document.getElementById('date_field').focus();
+        } else {
+          document.getElementById('date_field').showPicker();
         }
-        // },400)
       }
       if(wfInnerWidth <= 768){
          document.forms['BiginWebToRecordForm2768176000000628424'].setAttribute('data-ux-form-alignment', 'top');
