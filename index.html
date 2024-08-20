@@ -952,7 +952,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       function openDatePicker() {
         // document.getElementById('date_field').focus();
         // setTimeout(function() {
+        try {
           document.getElementById('date_field').showPicker();
+        } catch {
+          document.getElementById('date_field').focus();
+        }
         // },400)
       }
       if(wfInnerWidth <= 768){
@@ -982,7 +986,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         day = dayFormatter.format(new Date(event.value)),
         separator = '/';
 
-        event.nextElementSibling.value = `${year} ${separator} ${month} ${separator} ${day}`
+        event.nextElementSibling.value = `${year}${separator}${month}${separator}${day}`
       }
      function removeError(fieldObj) {
         var parentElement = fieldObj.closest('.wf-field'),
