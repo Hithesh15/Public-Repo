@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 
-  
 <title>Validation test form</title><link id='favIcon' rel='shortcut icon' href='https://static.localzohocdn.com/bigindev/biginclient/ui-assets/images/favicons/forms-favicon.cca943a3711d83e497425dc2d30c64fb.ico' type='image/x-icon'><style type='text/css'>
   /* COMMON STYLES */
   :root,
@@ -781,6 +780,36 @@
     width: 100%;
   }
   }
+
+  /* .wf-field-inner input[type="date"] {
+    border: none;
+    box-sizing: border-box;
+    outline: 0;
+    padding: .75rem;
+    position: relative;
+    width: 100%;
+} */
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+.hidden-date-field {
+  padding: 10px;
+  opacity: 0;
+  pointer-events: none;
+}
+.custom-date-converted-field {
+  position: absolute;
+}
   /* ==================== *** Mediaquery ends *** ==================== */
   </style>
   <iframe id='hidden2768176000000628424Frame' name='hidden2768176000000628424Frame' style='display: none;' class='iframe-container'></iframe><div class='wf-parent' style='background-color: &#x23;EAEEF2'>
@@ -894,6 +923,15 @@
              </div>
           </div>
        </div>
+       <div class='wf-row'>  
+        <div class='wf-label'>V_date_picker</div>
+        <div class='wf-field'>
+           <div class='wf-field-inner'>
+           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='MM/dd/yyyy' class='hidden-date-field' onchange='removeError(this);getDisplayValueForDateFields(this)'>
+           <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' value='' placeholder='MM/dd/yyyy' onclick="openDatePicker(this)" class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this);getDisplayValueForDateFields(this)'>
+           </div>
+        </div>
+     </div>
         <div class='wform-btn-wrap' data-ux-pos='left'>
            <input id='formsubmit' type='submit' class='wf-btn' data-ux-btn-type='default' style='background-color:&#x23;1980d8; color: #fff; border: 1px solid &#x23;1980d8;width: auto;' value='Submit'/>
         </div>
@@ -907,15 +945,45 @@
     </div>
   </div>
   <script>
-   
+
        var mndFileds=new Array('Last\x20Name');
        var fldLangVal=new Array('Last Name');
       var wfInnerWidth = window.innerWidth;
+      function openDatePicker() {
+        // document.getElementById('date_field').focus();
+        // setTimeout(function() {
+          document.getElementById('date_field').showPicker();
+        // },400)
+      }
       if(wfInnerWidth <= 768){
          document.forms['BiginWebToRecordForm2768176000000628424'].setAttribute('data-ux-form-alignment', 'top');
       }
       var name='';
       var email='';
+      function getDisplayValueForDateFields (event) {
+        // Create an Intl.DateTimeFormat object for year, month, and day with a custom locale and options
+        //Available values 'numeric', '2-digit', 'short', 'long'
+        //For single digit month use new Date().getMonth() + 1; for single digit date - new Date().getDate()
+        
+        let format = 'DD/MM/YY',
+        yearConvertValue = 'numeric',
+        monthConvertValue = '2-digit',
+        dayConvertValue = '2-digit'
+
+        if(format == 'DD/MM/YY') {
+          yearConvertValue = '2-digit'
+        }
+        const yearFormatter = new Intl.DateTimeFormat('en-US', { year: yearConvertValue});
+        const monthFormatter = new Intl.DateTimeFormat('en-US', { month: monthConvertValue });
+        const dayFormatter = new Intl.DateTimeFormat('en-US', { day: dayConvertValue });
+
+        var year = yearFormatter.format(new Date(event.value)),
+        month = monthFormatter.format(new Date(event.value)),
+        day = dayFormatter.format(new Date(event.value)),
+        separator = '/';
+
+        event.nextElementSibling.value = `${year} ${separator} ${month} ${separator} ${day}`
+      }
      function removeError(fieldObj) {
         var parentElement = fieldObj.closest('.wf-field'),
            childEle = parentElement.getElementsByClassName('wf-field-error')[0];
@@ -1064,7 +1132,7 @@
             ddM.classList.remove('dropdownTop')
             ddM.style.top = ''
           }
-        },300)
+        },200)
      }
      function createSingleSelectDrp(eleID, optionsData) {
       var eleDiv = document.getElementById(eleID),
@@ -1432,6 +1500,7 @@
           //  }
         });
      });
+     
      function showOrHideDropdownOptions() {
       
      }
