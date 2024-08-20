@@ -12,7 +12,7 @@
   padding: 0; 
    margin: 0; 
    outline: 0;}
-  html, 
+  html,
   body {
     height: 100%;
     width: 100%;
@@ -1046,15 +1046,25 @@
         if(_ddInput) {
           _ddInput.focus();
         }
-        if(event.y + ddM.offsetHeight > window.innerHeight) {
-          _dd.closest('.wf-field-dropdown').classList.add('dropdownTop')
-          ddM.classList.add('dropdownTop');
-          ddM.style.top = '-' + (ddM.closest('.ux-pick-mixed') ? ddM.offsetHeight + 4 :  ddM.offsetHeight) + 'px';
-        } else {
-          _dd.closest('.wf-field-dropdown').classList.remove('dropdownTop')
-          ddM.classList.remove('dropdownTop')
-          ddM.style.top = ''
-        }
+        setTimeout(function() {
+          if(_dd.getBoundingClientRect().y + ddM.offsetHeight > window.innerHeight) {
+            let top = ddM.offsetHeight;
+            if(ddM.closest('.ux-pick-mixed')) {
+              top = ddM.offsetHeight + 4
+            } else {
+              if(_sOpt.offsetHeight) {
+                top = Math.abs(ddM.offsetHeight) + _sOpt.offsetHeight
+              }
+            }
+            _dd.closest('.wf-field-dropdown').classList.add('dropdownTop')
+            ddM.classList.add('dropdownTop');
+            ddM.style.top = '-' + top + 'px';
+          } else {
+            _dd.closest('.wf-field-dropdown').classList.remove('dropdownTop')
+            ddM.classList.remove('dropdownTop')
+            ddM.style.top = ''
+          }
+        },300)
      }
      function createSingleSelectDrp(eleID, optionsData) {
       var eleDiv = document.getElementById(eleID),
@@ -1271,7 +1281,7 @@
       function addSelectedOption(eleID, optionsData, sOpt, optionValue) {
         var eleDiv = document.getElementById(eleID),
          _sOpt = eleDiv.getElementsByClassName('selected-options')[0],
-         _ddInput = eleDiv.getElementsByClassName('dropdown-input')[0]; 
+         _ddInput = eleDiv.getElementsByClassName('dropdown-input')[0];
   
         if (!sOpt.includes(optionValue)) {
            sOpt.push(optionValue); 
