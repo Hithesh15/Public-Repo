@@ -4,7 +4,7 @@
 <title>Validation test form</title><link id='favIcon' rel='shortcut icon' href='https://static.localzohocdn.com/bigindev/biginclient/ui-assets/images/favicons/forms-favicon.cca943a3711d83e497425dc2d30c64fb.ico' type='image/x-icon'><style type='text/css'>
   /* COMMON STYLES */
   :root,
-    html { 
+    html {
     font-size: 10px; 
   }
   * {
@@ -790,7 +790,7 @@
     width: 100%;
 } */
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+/* input[type="date"]::-webkit-calendar-picker-indicator {
     background: transparent;
     bottom: 0;
     color: transparent;
@@ -798,10 +798,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: auto;
     left: 0;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 10px;
+    top: 20px;
     width: auto;
-}
+} */
 .hidden-date-field {
   padding: 10px;
   opacity: 0;
@@ -809,6 +809,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .custom-date-converted-field {
   position: absolute;
+}
+.calendar-icon {
+  position: absolute;
+    right: 5px;
+    top: 7px;
+    font-size: 20px;
 }
   /* ==================== *** Mediaquery ends *** ==================== */
   </style>
@@ -927,9 +933,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         <div class='wf-label'>V_date_picker</div>
         <div class='wf-field'>
            <div class='wf-field-inner'>
-           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='MM/dd/yyyy' class='hidden-date-field' onchange='removeError(this);getDisplayValueForDateFields(this)'>
-           <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' value='' placeholder='MM/dd/yyyy' onclick="openDatePicker(this)" class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
+           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='MM/dd/yyyy' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'>
+           <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' value='' placeholder='MM/DD/YYYY' data-open-picker="true" onclick="openDatePicker(this)" class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
+           <span class="calendar-icon">&#128467;</span>
            </div>
+        </div>
+     </div>
+       <div class='wf-row'>  
+        <div class='wf-label'>V_date_picker</div>
+        <div class='wf-field'>
+           <div class='wf-field-inner'>
+           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='MM/dd/yyyy' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'>
+           <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' value='' placeholder='MM/DD/YYYY' data-open-picker="true" onclick="openDatePicker(this)" class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
+           <span class="calendar-icon">&#128467;</span> 
+          </div>
         </div>
      </div>
         <div class='wform-btn-wrap' data-ux-pos='left'>
@@ -949,15 +966,46 @@ input[type="date"]::-webkit-calendar-picker-indicator {
        var mndFileds=new Array('Last\x20Name');
        var fldLangVal=new Array('Last Name');
       var wfInnerWidth = window.innerWidth;
-      function openDatePicker(event) {
-        event.previousElementSibling.showPicker()
-        event.previousElementSibling.focus();
-      }
       if(wfInnerWidth <= 768){
          document.forms['BiginWebToRecordForm2768176000000628424'].setAttribute('data-ux-form-alignment', 'top');
       }
       var name='';
       var email='';
+      function openDatePicker(event) {
+        if(event.dataset.openPicker == 'false') {
+          event.dataset.openPicker = 'true'
+          return
+        }
+        document.querySelectorAll('input[type=date]~.custom-date-converted-field[data-open-picker=false]').forEach(x => x.dataset.openPicker = true)
+        event.dataset.openPicker = 'false';
+        if(event.value) {
+          let dateFormat = event.getAttribute('placeholder'),
+          dateIndex = 0,
+          monthIndex = 1,
+          yearIndex = 2,
+          availableSeparators = ['/','-','.'],
+          separator ='/';
+            for (const item of availableSeparators) {
+            if (dateFormat.includes(item)) {
+              separator = item;
+              break;
+            }
+            }
+          if(['YYYY/MM/DD'].includes(dateFormat)) {
+            yearIndex = 0;
+            dateIndex = 2;
+          } else if(['MM/DD/YYYY']) {
+            dateIndex = 1;
+            monthIndex = 0;
+            yearIndex = 2;
+          }
+          let dateArray = event.value.split(separator);
+          event.previousElementSibling.value = `${dateArray[yearIndex]}-${dateArray[monthIndex]}-${dateArray[dateIndex]}`
+        }
+        event.previousElementSibling.showPicker()
+        event.previousElementSibling.focus();
+        event.focus()
+      }
       function getDisplayValueForDateFields (event) {
         // Create an Intl.DateTimeFormat object for year, month, and day with a custom locale and options
         //Available values 'numeric', '2-digit', 'short', 'long'
@@ -1406,7 +1454,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
      }
      document.addEventListener('click', function(e){
         let targetClasses = e.target.classList,
-         classNames = ['multiselect', 'selected-options', 'dropdown-input', 'option', 'option-txt', 'selected-option', 'remove-button', 'dropdown'];
+         classNames = ['multiselect', 'selected-options', 'dropdown-input', 'option', 'option-txt', 'selected-option', 'remove-button', 'dropdown','custom-date-converted-field'];
         if(classNames.some(className => targetClasses.contains(className)) || e.target.closest('.multiselect.icon-with-text-dropdown')){
            return true;
         }else{
@@ -1450,7 +1498,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
             }
           }
           noResults = Array.from(document.getElementsByClassName('no-results'));
-          noResults.map(x => x.remove())
+          noResults.map(x => x.remove());
+          document.querySelectorAll('input[data-open-picker="false"]').forEach(x => x.dataset.openPicker = true)
         }
      });
      document.querySelectorAll('.dropdown-input').forEach(function(ddEle) {
