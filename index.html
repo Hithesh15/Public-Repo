@@ -816,6 +816,12 @@
     top: 7px;
     font-size: 20px;
 }
+.date-format-placeholder-label {
+  position: absolute;
+    top: 11px;
+    left: 16px;
+    pointer-events: none;
+}
   /* ==================== *** Mediaquery ends *** ==================== */
   </style>
   <iframe id='hidden2768176000000628424Frame' name='hidden2768176000000628424Frame' style='display: none;' class='iframe-container'></iframe><div class='wf-parent' style='background-color: &#x23;EAEEF2'>
@@ -933,9 +939,11 @@
         <div class='wf-label'>V_date_picker</div>
         <div class='wf-field'>
            <div class='wf-field-inner'>
-           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='MM/dd/yyyy' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'>
-           <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' value='' placeholder='MM/DD/YYYY' data-open-picker="true" onclick="openDatePicker(this)" class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
-           <span class="calendar-icon">&#128467;</span>
+           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='DD/MM/YY' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'>
+             <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' value='' onkeyup="modifyPlaceholder(this)" onclick="openDatePicker(this)" placeholder='DD/MM/YY' data-open-picker="true"  class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
+             <span class="date-format-placeholder-label" >DD/MM/YY</span>
+             <span class="dummy-div"></span>
+             <span class="calendar-icon" >&#128467;</span>
            </div>
         </div>
      </div>
@@ -943,9 +951,9 @@
         <div class='wf-label'>V_date_picker</div>
         <div class='wf-field'>
            <div class='wf-field-inner'>
-           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='MM/dd/yyyy' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'>
-           <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' value='' placeholder='MM/DD/YYYY' data-open-picker="true" onclick="openDatePicker(this)" class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
-           <span class="calendar-icon">&#128467;</span> 
+           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='MM DD YYYY' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'>
+           <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' onclick="openDatePicker(this)" value='MM DD YYYY' placeholder='MM DD YYYY' data-open-picker="true" class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
+           <span class="calendar-icon"  >&#128467;</span> 
           </div>
         </div>
      </div>
@@ -966,55 +974,92 @@
        var mndFileds=new Array('Last\x20Name');
        var fldLangVal=new Array('Last Name');
       var wfInnerWidth = window.innerWidth;
+      var lLimit = 80;
       if(wfInnerWidth <= 768){
          document.forms['BiginWebToRecordForm2768176000000628424'].setAttribute('data-ux-form-alignment', 'top');
       }
       var name='';
       var email='';
-      function openDatePicker(event) {
-        if(event.dataset.openPicker == 'false') {
-          event.dataset.openPicker = 'true'
+      function openDatePicker(ele) {
+        var parentEle = ele.closest('.wf-field-inner')
+        textField = parentEle.querySelector('.custom-date-converted-field'),
+        dateField = parentEle.querySelector('#date_field');
+        if(textField.dataset.openPicker == 'false') {
+          textField.dataset.openPicker = 'true'
           return
         }
         document.querySelectorAll('input[type=date]~.custom-date-converted-field[data-open-picker=false]').forEach(x => x.dataset.openPicker = true)
-        event.dataset.openPicker = 'false';
-        if(event.value) {
-          let dateFormat = event.getAttribute('placeholder'),
+        textField.dataset.openPicker = 'false';
+        if(textField.value) {
+          let dateFormat = textField.getAttribute('placeholder'),
           dateIndex = 0,
           monthIndex = 1,
           yearIndex = 2,
-          availableSeparators = ['/','-','.'],
-          separator ='/';
-            for (const item of availableSeparators) {
+          separator = getSeparators(dateFormat), year_2;
+            
+          let dateArray = textField.value.split(separator);
+          if(['YYYY/MM/DD'].includes(dateFormat)) {
+            yearIndex = 0;
+            monthIndex = 1;
+            dateIndex = 2;
+          } else if(['MM/DD/YYYY','MM-DD-YYYY','MM.DD.YYYY','MM DD YYYY'].includes(dateFormat)) {
+            monthIndex = 0;
+            dateIndex = 1;
+            yearIndex = 2;
+          } else if(['DD/MM/YY'].includes(dateFormat)) {
+            dateIndex = 0;
+            monthIndex = 1;
+            yearIndex = 2;
+            year_2 = getCorrectYear(parseInt(dateArray[yearIndex])) //.substring(0,2)
+            dateArray[yearIndex] = year_2;
+          }
+          dateField.value = `${dateArray[yearIndex]}-${dateArray[monthIndex]}-${dateArray[dateIndex]}`
+        }
+        dateField.showPicker()
+        dateField.focus();
+      }
+      function getCorrectYear (year) {
+        if((year+'').length != 2) {
+          return year
+        }
+        var cur_Year = (new Date).getFullYear(),
+            year_prefix = parseInt(cur_Year / 100),
+            year_suffix = cur_Year % 100,
+            limit = (year_suffix - lLimit + 100) % 100;
+        if (year_suffix > limit) {
+            if (year < limit) {
+                year = year_prefix + 1 + '' + year
+            } else {
+                year = year_prefix + '' + year
+            }
+        } else if (year < limit) {
+            year = year_prefix + '' + year
+        } else {
+            year = year_prefix - 1 + '' + year
+        }
+        return year
+    }
+    function getSeparators (dateFormat) {
+      var availableSeparators = ['/','-','.',' '],
+      separator='/';
+      for (const item of availableSeparators) {
             if (dateFormat.includes(item)) {
               separator = item;
               break;
             }
             }
-          if(['YYYY/MM/DD'].includes(dateFormat)) {
-            yearIndex = 0;
-            dateIndex = 2;
-          } else if(['MM/DD/YYYY']) {
-            dateIndex = 1;
-            monthIndex = 0;
-            yearIndex = 2;
-          }
-          let dateArray = event.value.split(separator);
-          event.previousElementSibling.value = `${dateArray[yearIndex]}-${dateArray[monthIndex]}-${dateArray[dateIndex]}`
-        }
-        event.previousElementSibling.showPicker()
-        event.previousElementSibling.focus();
-        event.focus()
-      }
+            return separator
+    }
       function getDisplayValueForDateFields (event) {
         // Create an Intl.DateTimeFormat object for year, month, and day with a custom locale and options
         //Available values 'numeric', '2-digit', 'short', 'long'
         //For single digit month use new Date().getMonth() + 1; for single digit date - new Date().getDate()
         
-        let format = 'DD/MM/YY',
+        let format = event.getAttribute('placeholder'),
         yearConvertValue = 'numeric',
         monthConvertValue = '2-digit',
-        dayConvertValue = '2-digit'
+        dayConvertValue = '2-digit',
+        endValue = '';
 
         if(format == 'DD/MM/YY') {
           yearConvertValue = '2-digit'
@@ -1022,15 +1067,31 @@
         const yearFormatter = new Intl.DateTimeFormat('en-US', { year: yearConvertValue});
         const monthFormatter = new Intl.DateTimeFormat('en-US', { month: monthConvertValue });
         const dayFormatter = new Intl.DateTimeFormat('en-US', { day: dayConvertValue });
-
-        var year = yearFormatter.format(new Date(event.value)),
-        month = monthFormatter.format(new Date(event.value)),
-        day = dayFormatter.format(new Date(event.value)),
-        separator = '/';
-
-        event.nextElementSibling.value = `${year}${separator}${month}${separator}${day}`
+        if(event.value) {
+          var year = yearFormatter.format(new Date(event.value)),
+          month = monthFormatter.format(new Date(event.value)),
+          day = dayFormatter.format(new Date(event.value)),
+          separator = getSeparators(format);
+          if(['MM/DD/YYYY','MM-DD-YYYY','MM.DD.YYYY','MM DD YYYY'].includes(format)) {
+            endValue = `${month}${separator}${day}${separator}${year}`
+          }  else if(['DD/MM/YY'].includes(format)){
+            endValue = `${day}${separator}${month}${separator}${year}`
+          }
+        }
+        event.nextElementSibling.value = endValue
       }
-     function removeError(fieldObj) {
+      function modifyPlaceholder (ele) {
+        var parentEle = ele.closest('.wf-field-inner'),
+        textField = parentEle.querySelector('.custom-date-converted-field'),
+        dummyDiv = parentEle.querySelector('.dummy-div')
+        placeholderDiv = parentEle.querySelector('.date-format-placeholder-label');
+        placeholderDiv.textContent = textField.getAttribute('placeholder'),
+        placeholderDiv.textContent = placeholderDiv.textContent.substring((ele.value+'').length)
+        dummyDiv.textContent = ele.value;
+        let contentWidth = dummyDiv.offsetWidth
+        placeholderDiv.style.left = parseInt(getComputedStyle(textField).paddingLeft) + contentWidth + 1 + 'px'
+      }
+      function removeError(fieldObj) {
         var parentElement = fieldObj.closest('.wf-field'),
            childEle = parentElement.getElementsByClassName('wf-field-error')[0];
         if(childEle) {
@@ -1454,7 +1515,7 @@
      }
      document.addEventListener('click', function(e){
         let targetClasses = e.target.classList,
-         classNames = ['multiselect', 'selected-options', 'dropdown-input', 'option', 'option-txt', 'selected-option', 'remove-button', 'dropdown','custom-date-converted-field'];
+         classNames = ['multiselect', 'selected-options', 'dropdown-input', 'option', 'option-txt', 'selected-option', 'remove-button', 'dropdown'];
         if(classNames.some(className => targetClasses.contains(className)) || e.target.closest('.multiselect.icon-with-text-dropdown')){
            return true;
         }else{
@@ -1499,7 +1560,7 @@
           }
           noResults = Array.from(document.getElementsByClassName('no-results'));
           noResults.map(x => x.remove());
-          document.querySelectorAll('input[data-open-picker="false"]').forEach(x => x.dataset.openPicker = true)
+          // document.querySelectorAll('input[data-open-picker="false"]').forEach(x => x.dataset.openPicker = true)
         }
      });
      document.querySelectorAll('.dropdown-input').forEach(function(ddEle) {
