@@ -635,6 +635,121 @@
     pointer-events: none;
 }
 
+/* --------------------------- */
+
+.hidden-date-field {
+  padding: 10px;
+  opacity: 0;
+  pointer-events: none;
+}
+.custom-date-converted-field {
+  position: absolute;
+}
+.calendar-icon {
+  position: absolute;
+    right: 5px;
+    top: 7px;
+    font-size: 20px;
+}
+.date-format-placeholder-label {
+  position: absolute;
+    top: 11px;
+    left: 16px;
+    pointer-events: none;
+}
+.date-input-container {
+  position: absolute;
+    width: 100%;
+    border: 1px solid #BDC8D3;
+    border-radius: 5px;
+}
+.wf-field-item-date.custom-date-converted-field {
+  position: relative;
+    border: none;
+    padding: 5px 10px;
+  }
+
+
+  .calendar-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.calendar {
+  position: absolute;
+  width: 19%;
+  display: none;
+  border: 1px solid #D2DBE5;
+  border-radius: 4px;
+  background: white;
+  z-index: 1000;
+  box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.2);
+  padding: 15px 20px 20px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-nav {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.calendar-month-year {
+  font-size: 16px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 10px;
+}
+
+.calendar-day {
+  text-align: center;
+  color: #212129;
+  font-size: 1.3rem;
+}
+
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-date {
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1.3rem;
+}
+
+.calendar-date:hover {
+  background-color: #f0f0f0;
+}
+
+.calendar-date.selected {
+  background-color: #007BFF;
+  color: white;
+}
+.disabled-date {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* --------------------------- */
+
   /* ==================== * Country dropdown Styles * ==================== */
   
   /* ==================== *** Form Alignment *** ==================== */
@@ -780,48 +895,6 @@
     width: 100%;
   }
   }
-
-  /* .wf-field-inner input[type="date"] {
-    border: none;
-    box-sizing: border-box;
-    outline: 0;
-    padding: .75rem;
-    position: relative;
-    width: 100%;
-} */
-
-/* input[type="date"]::-webkit-calendar-picker-indicator {
-    background: transparent;
-    bottom: 0;
-    color: transparent;
-    cursor: pointer;
-    height: auto;
-    left: 0;
-    position: absolute;
-    right: 10px;
-    top: 20px;
-    width: auto;
-} */
-.hidden-date-field {
-  padding: 10px;
-  opacity: 0;
-  pointer-events: none;
-}
-.custom-date-converted-field {
-  position: absolute;
-}
-.calendar-icon {
-  position: absolute;
-    right: 5px;
-    top: 7px;
-    font-size: 20px;
-}
-.date-format-placeholder-label {
-  position: absolute;
-    top: 11px;
-    left: 16px;
-    pointer-events: none;
-}
   /* ==================== *** Mediaquery ends *** ==================== */
   </style>
   <iframe id='hidden2768176000000628424Frame' name='hidden2768176000000628424Frame' style='display: none;' class='iframe-container'></iframe><div class='wf-parent' style='background-color: &#x23;EAEEF2'>
@@ -939,11 +1012,19 @@
         <div class='wf-label'>V_date_picker</div>
         <div class='wf-field'>
            <div class='wf-field-inner'>
-           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='DD/MM/YY' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'>
-             <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' value='' onkeyup="modifyPlaceholder(this)" onclick="openDatePicker(this)" placeholder='DD/MM/YY' data-open-picker="true"  class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
+           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='DD.MM.YY' class='hidden-date-field' onchange='getDisplayValueForDateFields(this);'>
+             <!-- <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' value='' onkeyup="modifyPlaceholder(this)" onclick="openDatePicker(this)" placeholder='' data-open-picker="true"  class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
              <span class="date-format-placeholder-label" >DD/MM/YY</span>
              <span class="dummy-div"></span>
-             <span class="calendar-icon" >&#128467;</span>
+             <span class="calendar-icon" >&#128467;</span> -->
+             <div class="date-input-container">
+              <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+              <span class="separator">-</span>
+              <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+              <span class="separator">-</span>
+              <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+              <span class="calendar-icon" >&#128467;</span> 
+          </div>
            </div>
         </div>
      </div>
@@ -951,9 +1032,18 @@
         <div class='wf-label'>V_date_picker</div>
         <div class='wf-field'>
            <div class='wf-field-inner'>
-           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='MM DD YYYY' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'>
-           <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' onclick="openDatePicker(this)" value='MM DD YYYY' placeholder='MM DD YYYY' data-open-picker="true" class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
-           <span class="calendar-icon"  >&#128467;</span> 
+           <input fvalidate='true' step="1" ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='DD-MM-YYYY' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'>
+           <!-- <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' onkeyup="modifyPlaceholder(this)" value='' placeholder='MM DD YYYY' data-open-picker="true" class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
+           <span class="date-format-placeholder-label" >MM DD YYYY</span>
+           <span class="dummy-div"></span> -->
+           <div class="date-input-container">
+            <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+            <span class="separator">-</span>
+            <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+            <span class="separator">-</span>
+            <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+            <span class="calendar-icon" >&#128467;</span> 
+        </div>
           </div>
         </div>
      </div>
@@ -968,7 +1058,27 @@
     </a>
     </form>
     </div>
+    <div id="calendar" class="calendar calendar-popup">
+      <div class="calendar-header">
+        <button id="prevYear" class="calendar-nav">&#171;</button>
+          <button id="prevMonth" class="calendar-nav">&#9664;</button>
+          <span id="monthYear" class="calendar-month-year"></span>
+          <button id="nextMonth" class="calendar-nav">&#9654;</button>
+          <button id="nextYear" class="calendar-nav">&#187;</button>
+      </div>
+      <div class="calendar-grid">
+          <div class="calendar-day">Sun</div>
+          <div class="calendar-day">Mon</div>
+          <div class="calendar-day">Tue</div>
+          <div class="calendar-day">Wed</div>
+          <div class="calendar-day">Thu</div>
+          <div class="calendar-day">Fri</div>
+          <div class="calendar-day">Sat</div>
+      </div>
+      <div id="calendarBody" class="calendar-body"></div>
   </div>
+  </div>
+  <script src="./calender-script.js"></script>
   <script>
 
        var mndFileds=new Array('Last\x20Name');
@@ -980,117 +1090,8 @@
       }
       var name='';
       var email='';
-      function openDatePicker(ele) {
-        var parentEle = ele.closest('.wf-field-inner')
-        textField = parentEle.querySelector('.custom-date-converted-field'),
-        dateField = parentEle.querySelector('#date_field');
-        if(textField.dataset.openPicker == 'false') {
-          textField.dataset.openPicker = 'true'
-          return
-        }
-        document.querySelectorAll('input[type=date]~.custom-date-converted-field[data-open-picker=false]').forEach(x => x.dataset.openPicker = true)
-        textField.dataset.openPicker = 'false';
-        if(textField.value) {
-          let dateFormat = textField.getAttribute('placeholder'),
-          dateIndex = 0,
-          monthIndex = 1,
-          yearIndex = 2,
-          separator = getSeparators(dateFormat), year_2;
-            
-          let dateArray = textField.value.split(separator);
-          if(['YYYY/MM/DD'].includes(dateFormat)) {
-            yearIndex = 0;
-            monthIndex = 1;
-            dateIndex = 2;
-          } else if(['MM/DD/YYYY','MM-DD-YYYY','MM.DD.YYYY','MM DD YYYY'].includes(dateFormat)) {
-            monthIndex = 0;
-            dateIndex = 1;
-            yearIndex = 2;
-          } else if(['DD/MM/YY'].includes(dateFormat)) {
-            dateIndex = 0;
-            monthIndex = 1;
-            yearIndex = 2;
-            year_2 = getCorrectYear(parseInt(dateArray[yearIndex])) //.substring(0,2)
-            dateArray[yearIndex] = year_2;
-          }
-          dateField.value = `${dateArray[yearIndex]}-${dateArray[monthIndex]}-${dateArray[dateIndex]}`
-        }
-        dateField.showPicker()
-        dateField.focus();
-      }
-      function getCorrectYear (year) {
-        if((year+'').length != 2) {
-          return year
-        }
-        var cur_Year = (new Date).getFullYear(),
-            year_prefix = parseInt(cur_Year / 100),
-            year_suffix = cur_Year % 100,
-            limit = (year_suffix - lLimit + 100) % 100;
-        if (year_suffix > limit) {
-            if (year < limit) {
-                year = year_prefix + 1 + '' + year
-            } else {
-                year = year_prefix + '' + year
-            }
-        } else if (year < limit) {
-            year = year_prefix + '' + year
-        } else {
-            year = year_prefix - 1 + '' + year
-        }
-        return year
-    }
-    function getSeparators (dateFormat) {
-      var availableSeparators = ['/','-','.',' '],
-      separator='/';
-      for (const item of availableSeparators) {
-            if (dateFormat.includes(item)) {
-              separator = item;
-              break;
-            }
-            }
-            return separator
-    }
-      function getDisplayValueForDateFields (event) {
-        // Create an Intl.DateTimeFormat object for year, month, and day with a custom locale and options
-        //Available values 'numeric', '2-digit', 'short', 'long'
-        //For single digit month use new Date().getMonth() + 1; for single digit date - new Date().getDate()
-        
-        let format = event.getAttribute('placeholder'),
-        yearConvertValue = 'numeric',
-        monthConvertValue = '2-digit',
-        dayConvertValue = '2-digit',
-        endValue = '';
-
-        if(format == 'DD/MM/YY') {
-          yearConvertValue = '2-digit'
-        }
-        const yearFormatter = new Intl.DateTimeFormat('en-US', { year: yearConvertValue});
-        const monthFormatter = new Intl.DateTimeFormat('en-US', { month: monthConvertValue });
-        const dayFormatter = new Intl.DateTimeFormat('en-US', { day: dayConvertValue });
-        if(event.value) {
-          var year = yearFormatter.format(new Date(event.value)),
-          month = monthFormatter.format(new Date(event.value)),
-          day = dayFormatter.format(new Date(event.value)),
-          separator = getSeparators(format);
-          if(['MM/DD/YYYY','MM-DD-YYYY','MM.DD.YYYY','MM DD YYYY'].includes(format)) {
-            endValue = `${month}${separator}${day}${separator}${year}`
-          }  else if(['DD/MM/YY'].includes(format)){
-            endValue = `${day}${separator}${month}${separator}${year}`
-          }
-        }
-        event.nextElementSibling.value = endValue
-      }
-      function modifyPlaceholder (ele) {
-        var parentEle = ele.closest('.wf-field-inner'),
-        textField = parentEle.querySelector('.custom-date-converted-field'),
-        dummyDiv = parentEle.querySelector('.dummy-div')
-        placeholderDiv = parentEle.querySelector('.date-format-placeholder-label');
-        placeholderDiv.textContent = textField.getAttribute('placeholder'),
-        placeholderDiv.textContent = placeholderDiv.textContent.substring((ele.value+'').length)
-        dummyDiv.textContent = ele.value;
-        let contentWidth = dummyDiv.offsetWidth
-        placeholderDiv.style.left = parseInt(getComputedStyle(textField).paddingLeft) + contentWidth + 1 + 'px'
-      }
+     
+      
       function removeError(fieldObj) {
         var parentElement = fieldObj.closest('.wf-field'),
            childEle = parentElement.getElementsByClassName('wf-field-error')[0];
@@ -1515,11 +1516,12 @@
      }
      document.addEventListener('click', function(e){
         let targetClasses = e.target.classList,
-         classNames = ['multiselect', 'selected-options', 'dropdown-input', 'option', 'option-txt', 'selected-option', 'remove-button', 'dropdown'];
-        if(classNames.some(className => targetClasses.contains(className)) || e.target.closest('.multiselect.icon-with-text-dropdown')){
+         classNames = ['multiselect', 'selected-options', 'dropdown-input', 'option', 'option-txt', 'selected-option', 'remove-button', 'dropdown', 'calendar-nav'];
+        if(classNames.some(className => targetClasses.contains(className)) || e.target.closest('.multiselect.icon-with-text-dropdown') || e.target.closest('.date-input-container') || e.target.closest('.calendar-popup')){
            return true;
         }else{
            var mLen = multiPickFields.length;
+           calendar.style.display = 'none';
            for(i=0; i<mLen; i++) {
            var dropdownMenu = document.querySelectorAll('.dropdown-menu')[i],
             dropdown = document.getElementsByClassName('dropdown')[i],
@@ -1608,10 +1610,6 @@
           //  }
         });
      });
-     
-     function showOrHideDropdownOptions() {
-      
-     }
      function validateMultiPick2768176000000628424() {
         var argL = arguments.length;
         var form = document.forms['BiginWebToRecordForm2768176000000628424'];
