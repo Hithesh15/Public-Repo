@@ -180,6 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function closeCalendar() {
             calendar.style.display = 'none';
+            wfCalendarMask.style.display = 'none';
         }
         function renderCalendar(date) {
             calendarBody.innerHTML = '';
@@ -254,6 +255,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 calendarBody.appendChild(dateCell);
             }
             calendar.style.display = 'block';
+            wfCalendarMask.style.display = 'block';
 
                 if(position.bottom + calendar.offsetHeight > window.innerHeight) {
                     calendar.style.top = `${position.top - calendar.offsetHeight + window.scrollY - 5}px`;
