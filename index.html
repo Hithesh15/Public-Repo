@@ -670,9 +670,18 @@
   border: 1px solid #D2DBE5;
   border-radius: 4px;
   background: white;
-  z-index: 1000;
+  z-index: 1001;
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.2);
   padding: 15px 20px 20px;
+}
+
+.wf-calendar-mask {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  z-index: 1000;
+  display: none;
 }
 
 .wf-calendar-header {
@@ -714,13 +723,15 @@
 
 .wf-calendar-date {
   text-align: center;
-  padding: 10px;
+  padding: 9px;
+  margin: 1px;
   cursor: pointer;
   font-size: 1.3rem;
 }
 
 .wf-calendar-date:hover {
   background-color: #f0f0f0;
+  border-radius: 25px;
 }
 
 .wf-calendar-date.selected {
@@ -1063,6 +1074,7 @@
       </div>
       <div id="wf-calendar-body" class="wf-calendar-body-wrapper"></div>
   </div>
+  <div id="wfCalendarMask" class="wf-calendar-mask"></div>
   </div>
   <script src="./calender-script.js"></script>
   <script>
@@ -1506,11 +1518,13 @@
         if(classNames.some(className => targetClasses.contains(className)) || e.target.closest('.multiselect.icon-with-text-dropdown') || e.target.closest('.date-input-container') || e.target.closest('.wf-calendar-popup-wrapper')){
            if(!e.target.closest('.date-input-container') && !e.target.closest('.wf-calendar-popup-wrapper')){
             calendar.style.display = 'none';
+            wfCalendarMask.style.display = 'none';
            }
           return true;
         }else{
            var mLen = multiPickFields.length;
            calendar.style.display = 'none';
+           wfCalendarMask.style.display = 'none';
            for(i=0; i<mLen; i++) {
            var dropdownMenu = document.querySelectorAll('.dropdown-menu')[i],
             dropdown = document.getElementsByClassName('dropdown')[i],
