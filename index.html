@@ -651,14 +651,7 @@
     top: 7px;
     font-size: 20px;
 }
-.date-format-placeholder-label {
-  position: absolute;
-    top: 11px;
-    left: 16px;
-    pointer-events: none;
-}
 .date-input-container {
-  position: absolute;
     width: 100%;
     border: 1px solid #BDC8D3;
     border-radius: 5px;
@@ -667,21 +660,10 @@
   position: relative;
     border: none;
     padding: 5px 10px;
+    text-transform: capitalize;
   }
 
-
-  .calendar-button {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.calendar {
+.wf-calendar-popup-wrapper {
   position: absolute;
   width: auto;
   display: none;
@@ -693,58 +675,65 @@
   padding: 15px 20px 20px;
 }
 
-.calendar-header {
+.wf-calendar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.calendar-nav {
+.wf-calendar-nav-icons {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 10px;
+  font-size: 22px;
+  margin: 0 5px;
+  opacity: 0.6;
 }
 
-.calendar-month-year {
+.wf-calendar-month-year {
   font-size: 16px;
 }
 
-.calendar-grid {
+.wf-calendar-grid-container {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   margin-bottom: 10px;
 }
 
-.calendar-day {
+.wf-calendar-days {
   text-align: center;
   color: #212129;
   font-size: 1.3rem;
 }
 
-.calendar-body {
+.wf-calendar-body-wrapper {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
 
-.calendar-date {
+.wf-calendar-date {
   text-align: center;
   padding: 10px;
   cursor: pointer;
   font-size: 1.3rem;
 }
 
-.calendar-date:hover {
+.wf-calendar-date:hover {
   background-color: #f0f0f0;
 }
 
-.calendar-date.selected {
+.wf-calendar-date.selected {
   background-color: #007BFF;
   color: white;
+  border-radius: 25px;
 }
-.disabled-date {
-  opacity: 0.5;
+.wf-calendar-date.current-date {
+  box-shadow: 0 0 0 1px #007BFF;
+  border-radius: 25px;
+}
+.wf-calendar-date.disabled-date {
+  opacity: 0.3;
   pointer-events: none;
 }
 
@@ -1012,41 +1001,34 @@
         <div class='wf-label'>V_date_picker</div>
         <div class='wf-field'>
            <div class='wf-field-inner'>
-           <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='DD.MM.YY' class='hidden-date-field' onchange='getDisplayValueForDateFields(this);'>
-             <!-- <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' value='' onkeyup="modifyPlaceholder(this)" onclick="openDatePicker(this)" placeholder='' data-open-picker="true"  class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
-             <span class="date-format-placeholder-label" >DD/MM/YY</span>
-             <span class="dummy-div"></span>
-             <span class="calendar-icon" >&#128467;</span> -->
-             <div class="date-input-container">
-              <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+           <!-- <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value=''  class='hidden-date-field' onchange='getDisplayValueForDateFields(this);'> -->
+             <div class="date-input-container" data-format='MMM D, YYYY'>
+              <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
               <span class="separator">-</span>
-              <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+              <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
               <span class="separator">-</span>
-              <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+              <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
               <span class="calendar-icon" >&#128467;</span> 
           </div>
            </div>
         </div>
      </div>
-       <div class='wf-row'>  
-        <div class='wf-label'>V_date_picker</div>
-        <div class='wf-field'>
-           <div class='wf-field-inner'>
-           <input fvalidate='true' step="1" ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='DD-MM-YYYY' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'>
-           <!-- <input fvalidate='true' ftype='date' type='text' name='CONTACTCF117' maxlength='20' onkeyup="modifyPlaceholder(this)" value='' placeholder='MM DD YYYY' data-open-picker="true" class='wf-field-item wf-field-input wf-field-item-date custom-date-converted-field' onchange='removeError(this)'>
-           <span class="date-format-placeholder-label" >MM DD YYYY</span>
-           <span class="dummy-div"></span> -->
-           <div class="date-input-container">
-            <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
-            <span class="separator">-</span>
-            <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
-            <span class="separator">-</span>
-            <input type="text" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
-            <span class="calendar-icon" >&#128467;</span> 
+     <div class='wf-row'>  
+      <div class='wf-label'>V_date_picker</div>
+      <div class='wf-field'>
+         <div class='wf-field-inner'>
+         <!-- <input fvalidate='true' step="1" ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='D.M.YY' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'> -->
+         <div class="date-input-container" data-format='D.M.YY'>
+          <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+          <span class="separator">-</span>
+          <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+          <span class="separator">-</span>
+          <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+          <span class="calendar-icon" >&#128467;</span> 
+      </div>
         </div>
-          </div>
-        </div>
-     </div>
+      </div>
+   </div>
         <div class='wform-btn-wrap' data-ux-pos='left'>
            <input id='formsubmit' type='submit' class='wf-btn' data-ux-btn-type='default' style='background-color:&#x23;1980d8; color: #fff; border: 1px solid &#x23;1980d8;width: auto;' value='Submit'/>
         </div>
@@ -1058,24 +1040,28 @@
     </a>
     </form>
     </div>
-    <div id="calendar" class="calendar calendar-popup">
-      <div class="calendar-header">
-        <button id="prevYear" class="calendar-nav">&#171;</button>
-          <button id="prevMonth" class="calendar-nav">&#8249;</button>
-          <span id="monthYear" class="calendar-month-year"></span>
-          <button id="nextMonth" class="calendar-nav">&#8250;</button>
-          <button id="nextYear" class="calendar-nav">&#187;</button>
+    <div id="wf-calender-popup" class="wf-calendar-popup-wrapper" style="font-family: Arial;">
+      <div class="wf-calendar-header">
+        <span class="flex-center-v">
+          <button id="wf-calendar-prevYear-icon" class="wf-calendar-nav-icons">&#171;</button>
+            <button id="wf-calendar-prevMonth-icon" class="wf-calendar-nav-icons">&#8249;</button>
+        </span>
+          <span id="wf-calendar-monthYear" class="wf-calendar-month-year"></span>
+          <span class="flex-center-v">
+            <button id="wf-calendar-nextMonth-icon" class="wf-calendar-nav-icons">&#8250;</button>
+            <button id="wf-calendar-nextYear-icon" class="wf-calendar-nav-icons">&#187;</button>
+          </span>
       </div>
-      <div class="calendar-grid">
-          <div class="calendar-day">Sun</div>
-          <div class="calendar-day">Mon</div>
-          <div class="calendar-day">Tue</div>
-          <div class="calendar-day">Wed</div>
-          <div class="calendar-day">Thu</div>
-          <div class="calendar-day">Fri</div>
-          <div class="calendar-day">Sat</div>
+      <div class="wf-calendar-grid-container">
+          <div class="wf-calendar-days">Sun</div>
+          <div class="wf-calendar-days">Mon</div>
+          <div class="wf-calendar-days">Tue</div>
+          <div class="wf-calendar-days">Wed</div>
+          <div class="wf-calendar-days">Thu</div>
+          <div class="wf-calendar-days">Fri</div>
+          <div class="wf-calendar-days">Sat</div>
       </div>
-      <div id="calendarBody" class="calendar-body"></div>
+      <div id="wf-calendar-body" class="wf-calendar-body-wrapper"></div>
   </div>
   </div>
   <script src="./calender-script.js"></script>
@@ -1516,9 +1502,12 @@
      }
      document.addEventListener('click', function(e){
         let targetClasses = e.target.classList,
-         classNames = ['multiselect', 'selected-options', 'dropdown-input', 'option', 'option-txt', 'selected-option', 'remove-button', 'dropdown', 'calendar-nav'];
-        if(classNames.some(className => targetClasses.contains(className)) || e.target.closest('.multiselect.icon-with-text-dropdown') || e.target.closest('.date-input-container') || e.target.closest('.calendar-popup')){
-           return true;
+         classNames = ['multiselect', 'selected-options', 'dropdown-input', 'option', 'option-txt', 'selected-option', 'remove-button', 'dropdown'];
+        if(classNames.some(className => targetClasses.contains(className)) || e.target.closest('.multiselect.icon-with-text-dropdown') || e.target.closest('.date-input-container') || e.target.closest('.wf-calendar-popup-wrapper')){
+           if(!e.target.closest('.date-input-container') && !e.target.closest('.wf-calendar-popup-wrapper')){
+            calendar.style.display = 'none';
+           }
+          return true;
         }else{
            var mLen = multiPickFields.length;
            calendar.style.display = 'none';
