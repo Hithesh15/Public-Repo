@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         function openCalendar() {
             if (selectedDateField) {
-                var monthValue = '', dayValue = '', yearValue = '', position = selectedDateField.querySelector('.wf-field-item-date').getBoundingClientRect();
+                var monthValue = '', dayValue = '', yearValue = '';
                 selectedDateField.querySelectorAll('.wf-field-item-date').forEach(x => {
                     if (x.dataset.type == 'day') {
                         dayValue = x.value;
@@ -166,25 +166,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     currentDate = new Date()
                 }
-                calendar.style.display = 'block';
-
-        //         // Check if there's enough space below the input
-        // if (inputRect.bottom + calendarHeight > viewportHeight) {
-        //     // Position the calendar above the input
-        //     calendar.style.top = `${inputRect.top - calendarHeight + window.scrollY}px`;
-        // } else {
-        //     // Position the calendar below the input
-        //     calendar.style.top = `${inputRect.bottom + window.scrollY}px`;
-        // }
-
-                if(position.bottom + calendar.offsetHeight > window.innerHeight) {
-                    calendar.style.top = `${position.top - calendar.offsetHeight + window.scrollY - 5}px`;
-                    // calendar.style.top = '';
-                } else {
-                    calendar.style.top = `${position.bottom + window.scrollY + 5}px`;
-                    // calendar.style.bottom = '';
-                }
-                calendar.style.left = `${position.left + window.scrollX}px`;
                 renderCalendar(currentDate);
             }
         }
@@ -204,6 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
             calendarBody.innerHTML = '';
             const year = date.getFullYear();
             const month = date.getMonth();
+            var position = selectedDateField.querySelector('.wf-field-item-date').getBoundingClientRect();
 
             // Set month and year header
             monthYear.textContent = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
@@ -271,6 +253,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 calendarBody.appendChild(dateCell);
             }
+            calendar.style.display = 'block';
+
+                if(position.bottom + calendar.offsetHeight > window.innerHeight) {
+                    calendar.style.top = `${position.top - calendar.offsetHeight + window.scrollY - 5}px`;
+                    // calendar.style.top = '';
+                } else {
+                    calendar.style.top = `${position.bottom + window.scrollY + 5}px`;
+                    // calendar.style.bottom = '';
+                }
+                calendar.style.left = `${position.left + window.scrollX}px`;
         }
 
     }
