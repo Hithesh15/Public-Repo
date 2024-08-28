@@ -298,27 +298,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
     }
-    document.addEventListener('scroll', function () {
-        debugger
-    })
 });
 
 function positionCalendar() {
+        
+        const wrapperRect = document.querySelector('.wf-form-component').getBoundingClientRect();
+        const position = selectedDateField.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - position.bottom;
 
-
-    const wrapperRect = document.querySelector('.wf-form-component').getBoundingClientRect();
-    const position = selectedDateField.getBoundingClientRect();
-    const wrapperDetails = getComputedStyle(document.querySelector('.wf-form-component'))
-    const top = position.bottom + window.scrollY - wrapperRect.top - 5;
-    const bottom = wrapperRect.bottom - position.top + window.scrollY;
-    const left = position.left + window.scrollX - wrapperRect.left;
-
-    // Check if there's enough space below the target element
-    if (bottom < calendar.offsetHeight) {
-        calendar.style.top = `${top - calendar.offsetHeight - selectedDateField.offsetHeight}px`;
-    } else {
-        calendar.style.top = `${top}px`;
-    }
+        if (spaceBelow >  calendar.offsetHeight) {
+            calendar.style.bottom = `${wrapperRect.bottom - position.bottom - calendar.offsetHeight - 5}px`
+            calendar.style.top = '';
+        } else {
+            calendar.style.top = `${Math.abs(position.top - wrapperRect.top - calendar.offsetHeight - 5)}px`
+            calendar.style.bottom = '';
+        }
+    // // Check if there's enough space below the target element
+    // if (bottom < calendar.offsetHeight) {
+    //     calendar.style.top = `${top - calendar.offsetHeight - selectedDateField.offsetHeight}px`;
+    // } else {
+    //     calendar.style.top = `${top}px`;
+    // }
 
     // Position based on text direction
     if (document.dir == 'rtl') {
