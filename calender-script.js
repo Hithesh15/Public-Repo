@@ -9,20 +9,37 @@ var currentDate = new Date(),
     nextYear = document.querySelector('#wf-calendar-nextYear-icon'),
     monthYear = document.querySelector('#wf-calendar-monthYear'),
     calendarBody = document.querySelector('#wf-calendar-body'),
+    dummyEle = document.querySelector('.dummy-div')
     minDate = new Date(2023, 0, 1),
     maxDate = new Date(2025, 11, 31);
+    // 0 - Sunday 1 = Monday, 2 = Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday
+    weekStartDay = 2;
+    // function getAllMonthsFull() {
+    //     var months = [];
+    //     for (let i = 0; i < 12; i++) {
+    //         months.push(new Date(2024, i, 1).toLocaleString('fr-FR', { month: 'long' }).toLowerCase());
+    //     }
+    //     return months;
+    // }
+    // function getAllMonthsShort() {
+    //     var months = [];
+    //     for (let i = 0; i < 12; i++) {
+    //         months.push(new Date(2024, i, 1).toLocaleString('fr-FR', { month: 'short' }).toLowerCase());
+    //     }
+    //     return months;
+    // }
 document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelectorAll('.date-input-container')) {
         document.querySelectorAll('.date-input-container').forEach(ele => {
             var dateFormat = ele.dataset.format,
-                yearObj = { placeholder: dateFormat.indexOf('YYYY') > -1 ? 'YYYY' : 'YY', maxLength: dateFormat.indexOf('YYYY') > -1 ? 4 : 2, width: '62px', id: 'yearInput', type: 'year' },
+                yearObj = { placeholder: dateFormat.indexOf('YYYY') > -1 ? 'YYYY' : 'YY', maxLength: dateFormat.indexOf('YYYY') > -1 ? 4 : 2, maxWidth: dateFormat.indexOf('YYYY') > -1 ? '40px' : '20px', id: 'yearInput', type: 'year' },
                 monthObj = getMonthObj(dateFormat)
-            dayObj = { placeholder: dateFormat.indexOf('DD') > -1 ? 'DD' : 'D', maxLength: 2, width: '42px', id: 'dayInput', type: 'day' };
-            if (['YYYY/MM/DD'].includes(dateFormat)) {
+            dayObj = { placeholder: dateFormat.indexOf('DD') > -1 ? 'DD' : 'D', maxLength: 2, maxWidth: dateFormat.indexOf('DD') > -1 ? '21px' : '16px', id: 'dayInput', type: 'day' };
+            if (['YYYY/MM/DD', 'YYYY-MM-DD', 'YYYY.MM.DD', 'YYYY MM DD', 'YY/MM/DD', 'YY-MM-DD', 'YY.M.D', 'YY-M-D', 'YY. M. D', 'YYYY/M/D', 'YYYY年MM月DD日', 'YY年M月D日', 'YYYY.MM.DD.', 'YYYY. MM. DD', 'YYYY.DD.MM', 'YY.D.M'].includes(dateFormat)) {
                 setInputsForDateFormat(ele, [yearObj, monthObj, dayObj], getSeparators(dateFormat))
-            } else if (['MM/DD/YYYY', 'MM-DD-YYYY', 'MM.DD.YYYY', 'MM DD YYYY', 'MMMM D, YYYY', 'MMM-DD-YYYY', 'MMM D, YYYY'].includes(dateFormat)) {
+            } else if (['MM/DD/YYYY', 'MM-DD-YYYY', 'MM.DD.YYYY', 'MM DD YYYY', 'MMMM D, YYYY', 'MMM-DD-YYYY', 'MMM D, YYYY', 'MM-DD-YY', 'MM/DD/YY', 'M/DD/YY', 'MMM DD, YYYY'].includes(dateFormat)) {
                 setInputsForDateFormat(ele, [monthObj, dayObj, yearObj], getSeparators(dateFormat))
-            } else if (['DD/MM/YY', "DD-MM-YYYY", "DD/MM/YYYY", "DD.MM.YYYY", "DD MM YYYY", "DD-MM-YY", "DD.MM.YY", "D.MM.YY", "D-M-YY", "D/M/YY", "D.M.YY", "D-M-YYYY", "DD MMM, YYYY"].includes(dateFormat)) {
+            } else if (['DD/MM/YY', "DD-MM-YYYY", "DD/MM/YYYY", "DD.MM.YYYY", "DD MM YYYY", "DD-MM-YY", "DD.MM.YY", "D.MM.YY", "D-M-YY", "D/M/YY", "D.M.YY", "D-M-YYYY", "DD MMM, YYYY", "D.M.YY.", "D/M/YYYY", "D.M.YYYY", "D. M. YYYY.", "D. M. YYYY", "D MMM, YYYY", "D. MMMM YYYY", "DD.MM.YYYY.", "DD.MM.YY."].includes(dateFormat)) {
                 setInputsForDateFormat(ele, [dayObj, monthObj, yearObj], getSeparators(dateFormat));
             }
 
@@ -37,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         })
         prevMonth.addEventListener('click', function () {
+            event.stopPropagation()
             currentDate.setMonth(currentDate.getMonth() - 1);
             renderCalendar(currentDate);
         });
@@ -55,32 +73,40 @@ document.addEventListener('DOMContentLoaded', function () {
             currentDate.setFullYear(currentDate.getFullYear() + 1);
             renderCalendar(currentDate);
         });
+
         function getMonthObj(dateFormat) {
-            var width = '46px', placeholder = 'M', maxLength = 2, isString = false;
+            var maxWidth = '', placeholder = 'M', maxLength = 2, isString = false, minWidth = '',width='';
             if (dateFormat.indexOf('MMMM') > -1) {
                 placeholder = 'MMMM';
                 maxLength = 9;
                 isString = true;
-                width = "95px"
+                maxWidth = "75px";
+                width = '50px'
             } else if (dateFormat.indexOf('MMM') > -1) {
                 placeholder = 'MMM'
-                width = '60px'
                 maxLength = 3;
                 isString = true;
+                width = maxWidth = '37px';
+                minWidth = '20px';
             } else if (dateFormat.indexOf('MM') > -1) {
-                placeholder = 'MM'
+                placeholder = 'MM';
+                maxWidth = '25px'
+            } else {
+                maxWidth = '16px'
             }
-            return { placeholder: placeholder, maxLength: maxLength, width: width, id: 'monthInput', type: 'month', isString: isString }
+            return { placeholder: placeholder, maxLength: maxLength, maxWidth: maxWidth, minWidth: minWidth, width: width, id: 'monthInput', type: 'month', isString: isString }
         }
         function setInputsForDateFormat(ele, formatObj, separators) {
             var inputs = ele.querySelectorAll('.wf-field-item-date')
             formatObj.map((obj, index) => {
                 inputs[index].id = obj.id;
                 inputs[index].placeholder = obj.placeholder;
-                inputs[index].style.maxWidth = obj.width;
+                inputs[index].style.maxWidth = obj.maxWidth;
                 inputs[index].dataset.type = obj.type;
                 if (obj.isString) {
                     inputs[index].maxLength = obj.maxLength
+                    inputs[index].style.minWidth = obj.minWidth
+                    inputs[index].style.width = obj.width
                 }
 
                 validateAndFormatInput(inputs[index], obj.maxLength, obj.type, inputs[index + 1], inputs[index - 1], obj);
@@ -89,15 +115,21 @@ document.addEventListener('DOMContentLoaded', function () {
             function validateAndFormatInput(input, max, type, nextInput, prevInput, obj) {
                 input.addEventListener('input', function () {
 
-                    // if (this.value.length == max) {
-                    //     openCalendar()
-                    // }
+                    if (this.value.length == max) {
+                        openCalendar()
+                    }
 
                     let value = this.value.replace(/\D/g, '');
                     if (obj.isString) {
                         this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
                         if (this.value && this.value.length == max && nextInput) {
                             nextInput.focus()
+                        }
+                        if(this.value) {
+                            dummyEle.innerHTML = this.value
+                            this.style.width = dummyEle.offsetWidth + 5 + 'px'
+                        } else {
+                            this.style.width = obj.width
                         }
                         return
                     }
@@ -113,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         value = parseInt(value) + ''
                     }
 
-                    if (value != "0" && value.length === 1 && max === 2 && !['D', 'M'].includes(this.placeholder)) {
+                    if (value != "0" && value.length === 1 && max === 2 && !['D', 'M', 'YY'].includes(this.placeholder)) {
                         value = '0' + value;
                     }
                     if (type == 'year' && value.length > max) {
@@ -123,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.value = value;
 
                     // Move focus to the next input if max length is reached
-                    if ((value.length === max || ['D', 'M'].includes(this.placeholder)) && nextInput && ((type === 'day' && parseInt(value) > 3) || (type === 'month' && parseInt(value) > 1))) {
+                    if ((value.length === max || ['D', 'M'].includes(this.placeholder)) && nextInput && ((type === 'day' && parseInt(value) > 3) || (type === 'month' && parseInt(value) > 1) || (type == 'year' && this.value.length == max))) {
                         nextInput.focus();
                     }
 
@@ -132,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     let value = this.value;
 
                     // Pad the value with leading zero if necessary
-                    if (value.length === 1 && max === 2) {
+                    if (value.length === 1 && max === 2 && !['D', 'M'].includes(this.placeholder)) {
                         this.value = '0' + value;
                     }
                 });
@@ -180,23 +212,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function closeCalendar() {
             calendar.style.display = 'none';
-            wfCalendarMask.style.display = 'none';
         }
         function renderCalendar(date) {
             calendarBody.innerHTML = '';
-            const year = date.getFullYear();
-            const month = date.getMonth();
-            var position = selectedDateField.querySelector('.wf-field-item-date').getBoundingClientRect();
+            const year = date.getFullYear(),
+            month = date.getMonth(),
+            dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            firstDayOfMonth = new Date(year, month, 1).getDay(),
+            adjustedFirstDay = (firstDayOfMonth - weekStartDay + 7) % 7, // Adjust for the custom week start day
+            lastDate = new Date(year, month + 1, 0).getDate(),
+            adjustedDayNames = dayNames.slice(weekStartDay).concat(dayNames.slice(0, weekStartDay));
+            
 
             // Set month and year header
             monthYear.textContent = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
 
-            // Get the first day of the month
-            const firstDay = new Date(year, month, 1).getDay();
-            const lastDate = new Date(year, month + 1, 0).getDate();
+            adjustedDayNames.map((day,index) => calendar.querySelectorAll('.wf-calendar-days')[index].innerHTML = day);
 
             // Fill the calendar with days
-            for (let i = 0; i < firstDay; i++) {
+            for (let i = 0; i < adjustedFirstDay; i++) {
                 const emptyCell = document.createElement('div');
                 calendarBody.appendChild(emptyCell);
             }
@@ -220,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 // Check if the day is restricted (e.g., Monday or Tuesday) or min max validations or restrict past or restrict future dates
-                // 1 = Monday, 2 = Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 0 - Sunday
+                // 0 - Sunday 1 = Monday, 2 = Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday
                 if ([0, 6].includes(dayOfWeek) /* || dateObj < minDate || dateObj > maxDate  || dateObj > new Date()|| dateObj > new Date()*/) {
                     dateCell.classList.add('disabled-date');
                 } else {
@@ -235,8 +269,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 x.value = String(month + 1).padStart(2, '0');
                                 if (x.placeholder == 'MMM') {
                                     x.value = shortMonth[month]
+                                    // x.style.width = '27px'
+                                    dummyEle.innerHTML = x.value
+                                    x.style.width = dummyEle.offsetWidth + 5 + 'px'
                                 } else if (x.placeholder == 'MMMM') {
                                     x.value = longMonth[month]
+                                    dummyEle.innerHTML = x.value
+                                    x.style.width = dummyEle.offsetWidth + 5 + 'px'
                                 } else if (x.placeholder == 'M') {
                                     x.value = String(month + 1);
                                 }
@@ -255,58 +294,39 @@ document.addEventListener('DOMContentLoaded', function () {
                 calendarBody.appendChild(dateCell);
             }
             calendar.style.display = 'block';
-            wfCalendarMask.style.display = 'block';
-
-                if(position.bottom + calendar.offsetHeight > window.innerHeight) {
-                    calendar.style.top = `${position.top - calendar.offsetHeight + window.scrollY - 5}px`;
-                    // calendar.style.top = '';
-                } else {
-                    calendar.style.top = `${position.bottom + window.scrollY + 5}px`;
-                    // calendar.style.bottom = '';
-                }
-                calendar.style.left = `${position.left + window.scrollX}px`;
+            positionCalendar()
         }
 
     }
+    document.addEventListener('scroll', function () {
+        debugger
+    })
 });
-// function openDatePicker(ele) {
-//     var parentEle = ele.closest('.wf-field-inner')
-//     textField = parentEle.querySelector('.custom-date-converted-field'),
-//         dateField = parentEle.querySelector('#date_field');
-//     if (textField.dataset.openPicker == 'false') {
-//         textField.dataset.openPicker = 'true'
-//         return
-//     }
-//     document.querySelectorAll('input[type=date]~.custom-date-converted-field[data-open-picker=false]').forEach(x => x.dataset.openPicker = true)
-//     textField.dataset.openPicker = 'false';
-//     if (textField.value) {
-//         let dateFormat = textField.getAttribute('placeholder'),
-//             dateIndex = 0,
-//             monthIndex = 1,
-//             yearIndex = 2,
-//             separator = getSeparators(dateFormat), year_2;
 
-//         let dateArray = textField.value.split(separator);
-//         if (['YYYY/MM/DD'].includes(dateFormat)) {
-//             yearIndex = 0;
-//             monthIndex = 1;
-//             dateIndex = 2;
-//         } else if (['MM/DD/YYYY', 'MM-DD-YYYY', 'MM.DD.YYYY', 'MM DD YYYY'].includes(dateFormat)) {
-//             monthIndex = 0;
-//             dateIndex = 1;
-//             yearIndex = 2;
-//         } else if (['DD/MM/YY'].includes(dateFormat)) {
-//             dateIndex = 0;
-//             monthIndex = 1;
-//             yearIndex = 2;
-//             year_2 = getCorrectYear(parseInt(dateArray[yearIndex])) //.substring(0,2)
-//             dateArray[yearIndex] = year_2;
-//         }
-//         dateField.value = `${dateArray[yearIndex]}-${dateArray[monthIndex]}-${dateArray[dateIndex]}`
-//     }
-//     dateField.showPicker()
-//     dateField.focus();
-// }
+function positionCalendar() {
+
+
+    const wrapperRect = document.querySelector('.wf-form-component').getBoundingClientRect();
+    const position = selectedDateField.getBoundingClientRect();
+    const wrapperDetails = getComputedStyle(document.querySelector('.wf-form-component'))
+    const top = position.bottom + window.scrollY - wrapperRect.top - 5;
+    const bottom = wrapperRect.bottom - position.top + window.scrollY;
+    const left = position.left + window.scrollX - wrapperRect.left;
+
+    // Check if there's enough space below the target element
+    if (bottom < calendar.offsetHeight) {
+        calendar.style.top = `${top - calendar.offsetHeight - selectedDateField.offsetHeight}px`;
+    } else {
+        calendar.style.top = `${top}px`;
+    }
+
+    // Position based on text direction
+    if (document.dir == 'rtl') {
+        calendar.style.right = `${Math.abs(position.right - wrapperRect.right)}px`;
+    } else {
+        calendar.style.left = `${Math.abs(position.left - wrapperRect.left)}px`;
+    }
+}
 function getCorrectYear(year) {
     if ((year + '').length != 2) {
         return year
@@ -329,43 +349,15 @@ function getCorrectYear(year) {
     return year
 }
 function getSeparators(dateFormat) {
-    // var availableSeparators = ['/', '-', '.', ' ', ','],
-    //     separator = '/';
-    // for (const item of availableSeparators) {
-    //     if (dateFormat.includes(item)) {
-    //         separator = item;
-    //         break;
-    //     }
-    // }
-    return dateFormat.match(/[^a-zA-Z0-9]/g)
+    var separators = [];
+    const regexPattern1 = /\. /g;
+    if (regexPattern1.test(dateFormat)) {
+        separators = dateFormat.match(regexPattern1)
+    } else {
+        separators = dateFormat.match(/[^a-zA-Z0-9]/g)
+    }
+    if (separators.length == 1) {
+        separators = dateFormat.match(/[^a-zA-Z0-9]/g)
+    }
+    return separators
 }
-// function getDisplayValueForDateFields(event) {
-//     // Create an Intl.DateTimeFormat object for year, month, and day with a custom locale and options
-//     //Available values 'numeric', '2-digit', 'short', 'long'
-//     //For single digit month use new Date().getMonth() + 1; for single digit date - new Date().getDate()
-
-//     let format = event.getAttribute('placeholder'),
-//         yearConvertValue = 'numeric',
-//         monthConvertValue = '2-digit',
-//         dayConvertValue = '2-digit',
-//         endValue = '';
-
-//     if (format == 'DD/MM/YY') {
-//         yearConvertValue = '2-digit'
-//     }
-//     const yearFormatter = new Intl.DateTimeFormat('en-US', { year: yearConvertValue });
-//     const monthFormatter = new Intl.DateTimeFormat('en-US', { month: monthConvertValue });
-//     const dayFormatter = new Intl.DateTimeFormat('en-US', { day: dayConvertValue });
-//     if (event.value) {
-//         var year = yearFormatter.format(new Date(event.value)),
-//             month = monthFormatter.format(new Date(event.value)),
-//             day = dayFormatter.format(new Date(event.value)),
-//             separator = getSeparators(format);
-//         if (['MM/DD/YYYY', 'MM-DD-YYYY', 'MM.DD.YYYY', 'MM DD YYYY'].includes(format)) {
-//             endValue = `${month}${separator}${day}${separator}${year}`
-//         } else if (['DD/MM/YY'].includes(format)) {
-//             endValue = `${day}${separator}${month}${separator}${year}`
-//         }
-//     }
-//     event.nextElementSibling.value = endValue;
-// }
