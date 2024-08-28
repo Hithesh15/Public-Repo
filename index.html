@@ -564,6 +564,9 @@
   min-height: 36px;
 }
   }
+  .wf-form-component:not([data-ux-form-alignment='top']) .multiple-fields-div {
+  width: 70%;
+}
   .icon-with-text-dropdown {
     .dropdown > span {
       margin-right: 10px;
@@ -637,31 +640,56 @@
 
 /* --------------------------- */
 
-.hidden-date-field {
-  padding: 10px;
-  opacity: 0;
-  pointer-events: none;
+html[dir=rtl] {
+  .multiple-fields-div{
+  .wf-field-item:not(.selected-options) {
+    border-radius: 4px 0px 0px 4px;
 }
-.custom-date-converted-field {
-  position: absolute;
+.wf-field-dropdown {
+    border-radius: 0px 4px 4px 0px;
+    border-left: 0;
+    border-right: 1px solid #BDC8D3;
+  }
+  }.ux-pick-mixed {
+    .dropdown-menu {
+      right: -1px;
+    }
+  }
+.wf-form-component[data-ux-form-alignment='left'] .wf-label {
+  padding-left: 2rem;
+  padding-right: 0;
 }
+  }
+
 .calendar-icon {
-  position: absolute;
+  /* position: absolute;
     right: 5px;
-    top: 7px;
+    top: 7px; */
     font-size: 20px;
+    padding: 0px 5px;
 }
 .date-input-container {
     width: 100%;
     border: 1px solid #BDC8D3;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dummy-div {
+    width: fit-content;
+    visibility: hidden;
+    position: absolute;
 }
 .wf-field-item-date.custom-date-converted-field {
   position: relative;
-    border: none;
-    padding: 5px 10px;
-    text-transform: capitalize;
-  }
+  border: none;
+  padding: 5px 0px;
+  text-transform: capitalize;
+}
+.wf-date-containers {
+  padding: 0px 10px;
+}
 
 .wf-calendar-popup-wrapper {
   position: absolute;
@@ -673,15 +701,6 @@
   z-index: 1001;
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.2);
   padding: 15px 20px 20px;
-}
-
-.wf-calendar-mask {
-  height: 100%;
-  width: 100%;
-  top: 0;
-  position: absolute;
-  z-index: 1000;
-  display: none;
 }
 
 .wf-calendar-header {
@@ -898,10 +917,10 @@
   /* ==================== *** Mediaquery ends *** ==================== */
   </style>
   <iframe id='hidden2768176000000628424Frame' name='hidden2768176000000628424Frame' style='display: none;' class='iframe-container'></iframe><div class='wf-parent' style='background-color: &#x23;EAEEF2'>
-    <div class='wf-wrapper' id='BiginWebToRecordFormDiv2768176000000628424'>
+    <div class='wf-wrapper' id='BiginWebToRecordFormDiv2768176000000628424' onscroll="positionCalendar()">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <META HTTP-EQUIV='content-type' CONTENT='text/html;charset=UTF-8'>
-    <form id='BiginWebToRecordForm2768176000000628424' name='BiginWebToRecordForm2768176000000628424' class='wf-form-component' data-ux-form-alignment='top' style='font-family: Arial;position: relative;font-size:15px;' method='POST' enctype='multipart/form-data' target='hidden2768176000000628424Frame' onSubmit='validateForm2768176000000628424()' accept-charset='UTF-8'>
+    <form id='BiginWebToRecordForm2768176000000628424' name='BiginWebToRecordForm2768176000000628424' class='wf-form-component' data-ux-form-alignment='right' style='font-family: Arial;position: relative;font-size:15px;' method='POST' enctype='multipart/form-data' target='hidden2768176000000628424Frame' onSubmit='validateForm2768176000000628424()' accept-charset='UTF-8'>
   <!-- Do not remove this code. -->
      <input type='text' style='display:none;' name='xnQsjsdp' value='f2f4a2beac6edd6ae686b60679e4b7cd22d71fd32b121e89ca83acb791582207'/>
      <input type='hidden' name='zc_gad' id='zc_gad' value=''/>
@@ -1012,13 +1031,14 @@
         <div class='wf-label'>V_date_picker</div>
         <div class='wf-field'>
            <div class='wf-field-inner'>
-           <!-- <input fvalidate='true' ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value=''  class='hidden-date-field' onchange='getDisplayValueForDateFields(this);'> -->
              <div class="date-input-container" data-format='MMM D, YYYY'>
-              <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
-              <span class="separator">-</span>
-              <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
-              <span class="separator">-</span>
-              <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+              <span class="wf-date-containers">
+                <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+                <span class="separator">-</span>
+                <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+                <span class="separator">-</span>
+                <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+              </span>
               <span class="calendar-icon" >&#128467;</span> 
           </div>
            </div>
@@ -1028,13 +1048,14 @@
       <div class='wf-label'>V_date_picker</div>
       <div class='wf-field'>
          <div class='wf-field-inner'>
-         <!-- <input fvalidate='true' step="1" ftype='date' type='date' id="date_field" name='CONTACTCF117' maxlength='20' value='' placeholder='D.M.YY' class='hidden-date-field' onchange='getDisplayValueForDateFields(this)'> -->
-         <div class="date-input-container" data-format='D.M.YY'>
-          <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
-          <span class="separator">-</span>
-          <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
-          <span class="separator">-</span>
-          <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+         <div class="date-input-container" data-format='MMMM D, YYYY'>
+          <span class="wf-date-containers">
+            <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+            <span class="separator">-</span>
+            <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+            <span class="separator">-</span>
+            <input type="text" autocomplete="off" class="wf-field-item wf-field-input wf-field-item-date custom-date-converted-field">
+          </span>
           <span class="calendar-icon" >&#128467;</span> 
       </div>
         </div>
@@ -1049,32 +1070,32 @@
       <img src='https://biginqa.localzoho.com/images/bigin-logo-xs.svg' style='margin-right: 5px;'/>
       <span>Bigin</span>
     </a>
-    </form>
-    </div>
-    <div id="wf-calender-popup" class="wf-calendar-popup-wrapper" style="font-family: Arial;">
+    <div id="wf-calender-popup" class="wf-calendar-popup-wrapper">
       <div class="wf-calendar-header">
         <span class="flex-center-v">
-          <button id="wf-calendar-prevYear-icon" class="wf-calendar-nav-icons">&#171;</button>
-            <button id="wf-calendar-prevMonth-icon" class="wf-calendar-nav-icons">&#8249;</button>
+          <button id="wf-calendar-prevYear-icon" class="wf-calendar-nav-icons" type="button">&#171;</button>
+            <button id="wf-calendar-prevMonth-icon" class="wf-calendar-nav-icons" type="button">&#8249;</button>
         </span>
           <span id="wf-calendar-monthYear" class="wf-calendar-month-year"></span>
           <span class="flex-center-v">
-            <button id="wf-calendar-nextMonth-icon" class="wf-calendar-nav-icons">&#8250;</button>
-            <button id="wf-calendar-nextYear-icon" class="wf-calendar-nav-icons">&#187;</button>
+            <button id="wf-calendar-nextMonth-icon" class="wf-calendar-nav-icons" type="button">&#8250;</button>
+            <button id="wf-calendar-nextYear-icon" class="wf-calendar-nav-icons" type="button">&#187;</button>
           </span>
       </div>
       <div class="wf-calendar-grid-container">
-          <div class="wf-calendar-days">Sun</div>
-          <div class="wf-calendar-days">Mon</div>
-          <div class="wf-calendar-days">Tue</div>
-          <div class="wf-calendar-days">Wed</div>
-          <div class="wf-calendar-days">Thu</div>
-          <div class="wf-calendar-days">Fri</div>
-          <div class="wf-calendar-days">Sat</div>
+          <div class="wf-calendar-days"></div>
+          <div class="wf-calendar-days"></div>
+          <div class="wf-calendar-days"></div>
+          <div class="wf-calendar-days"></div>
+          <div class="wf-calendar-days"></div>
+          <div class="wf-calendar-days"></div>
+          <div class="wf-calendar-days"></div>
       </div>
       <div id="wf-calendar-body" class="wf-calendar-body-wrapper"></div>
+      <div class="dummy-div"></div>
   </div>
-  <div id="wfCalendarMask" class="wf-calendar-mask"></div>
+    </form>
+    </div>
   </div>
   <script src="./calender-script.js"></script>
   <script>
@@ -1518,13 +1539,11 @@
         if(classNames.some(className => targetClasses.contains(className)) || e.target.closest('.multiselect.icon-with-text-dropdown') || e.target.closest('.date-input-container') || e.target.closest('.wf-calendar-popup-wrapper')){
            if(!e.target.closest('.date-input-container') && !e.target.closest('.wf-calendar-popup-wrapper')){
             calendar.style.display = 'none';
-            wfCalendarMask.style.display = 'none';
            }
           return true;
         }else{
            var mLen = multiPickFields.length;
            calendar.style.display = 'none';
-           wfCalendarMask.style.display = 'none';
            for(i=0; i<mLen; i++) {
            var dropdownMenu = document.querySelectorAll('.dropdown-menu')[i],
             dropdown = document.getElementsByClassName('dropdown')[i],
